@@ -1,0 +1,9 @@
+# Virtualenv
+/env
+
+# Python stuff
+*.pyc
+*.pyo
+
+# Don't check in the database
+*.sqlite
