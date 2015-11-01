@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<table class=".table">
+	{% for city in cities %}
+			<tr>
+				<th>{{ city.fields['name'].value }}</th>
+			</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

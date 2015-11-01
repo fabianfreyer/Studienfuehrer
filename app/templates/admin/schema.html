@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+	<table class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Permit Comment</th>
+			<th>Datatype</th>
+		</tr>
+	{% for schema in schemata %}
+		<tr>
+			<td>{{ schema.name }}</td>
+			<td>{{ schema.permit_comment }}</td>
+			<td>{{ schema.data_type }}</td>
+		</tr>
+	{% endfor %}
+  <table>
+{% endblock %}
+
