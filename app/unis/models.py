@@ -99,7 +99,7 @@ class Container(db.Model):
     container_type = db.Column(db.Enum("text", "numeric", "boolean"))
     id = db.Column(db.Integer, primary_key=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('container.id'))
-    children = db.relationship('Container', backref='parent', remote_side=[id])
+    parent = db.relationship('Container', backref='children', remote_side=[id])
     fields = db.relationship('Field',
             collection_class=attribute_mapped_collection('name'),
             back_populates='container')
