@@ -13,6 +13,9 @@ class Schema(db.Model):
     weight = db.Column(db.Integer)
     data_type = db.Column(db.Enum("textfield", "numericfield", "boolean"))
 
+    def __repr__(self):
+        return "<Field: (%s) %s>" % (self.data_type, self.name)
+
 
 class Field(db.Model):
     """

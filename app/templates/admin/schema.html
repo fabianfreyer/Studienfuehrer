@@ -1,19 +1,43 @@
 {% extends "base.html" %}
 
 {% block page_content %}
+<div class="page_header">
+</div>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <span class="pull-left">Available Fields</span>
+    <a href="{{url_for('unis.schema_add')}}" class="btn btn-default pull-right">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      Add Field
+    </a>
+  </div>
 	<table class="table table-striped">
 		<tr>
 			<th>Name</th>
+      <th>Description</th>
 			<th>Permit Comment</th>
 			<th>Datatype</th>
+      <th></th>
 		</tr>
 	{% for schema in schemata %}
 		<tr>
 			<td>{{ schema.name }}</td>
+      <td>{{ schema.description }}</td>
 			<td>{{ schema.permit_comment }}</td>
 			<td>{{ schema.data_type }}</td>
+      <td>
+        <div class="btn-group pull-right" role="group" aria-hidden="true">
+          <a href="{{url_for('unis.schema_delete', schema_id=schema.id)}}" class="btn btn-default">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          </a>
+          <a href="{{url_for('unis.schema_edit', schema_id=schema.id)}}" class="btn btn-default">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+          </a>
+        </div>
+      </td>
 		</tr>
 	{% endfor %}
   <table>
+</div>
 {% endblock %}
 
