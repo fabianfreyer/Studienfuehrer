@@ -26,3 +26,28 @@ def city_add():
         db.session.add(name)
         return redirect(url_for('unis.cities'))
     return render_template("city_add.html", form=form)
+
+@unis.route('/uni/add', methods=('GET', 'POST'))
+@login_required
+def uni_add():
+    """
+    Add a uni to a city
+    """
+    form = forms.UniAddForm()
+    # Update the choices to add all the cities
+    form.city.choices = [(city.id, city.fields['name'].value) for city in models.City.query.all()]
+    if form.validate_on_submit():
+        # Get the city to add the uni to
+        city = models.City.query.get(form.city.data)
+        uni = models.Uni(city)
+        # Fetch the name field schema instance
+        name_schema = models.Schema.query.filter_by(name='name').first()
+        # Create a name field for the uni
+        name = models.TextField(name_schema, uni)
+        name.value = form.name.data
+        db.session.add(uni)
+        db.session.add(name)
+        # Flush the db session, so we can see what the ID of the newly added uni is
+        db.session.flush()
+        return redirect(url_for('unis.uni', uni_id=uni.id))
+    return render_template("uni_add.html", form=form)
