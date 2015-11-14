@@ -1,0 +1,20 @@
+{% macro link(href, icon='', text='') %}
+<a href="{{href}}" class="btn btn-default">
+  {% if icon !='' %}
+    <span class="glyphicon glyphicon-{{icon}}" aria-hidden="true"></span>
+  {% endif %}
+  {{text}}
+</a>
+{% endmacro %}
+
+{% macro remove(href, text='') %}
+  {{ link(href, icon='remove', text=text) }}
+{% endmacro %}
+
+{% macro add(href, text='') %}
+  {{ link(href, icon='plus', text=text) }}
+{% endmacro %}
+
+{% macro edit(href, text='') %}
+  {{ link(href, icon='edit', text=text) }}
+{% endmacro %}

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "buttons.html" as buttons %}
 
 {% block page_content %}
 <div class="page_header">
@@ -7,10 +8,9 @@
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <span class="pull-left">Available Fields</span>
-    <a href="{{url_for('unis.schema_add')}}" class="btn btn-default pull-right">
-      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-      Add Field
-    </a>
+    <div class="btn-group pull-right">
+      {{ buttons.add(url_for('unis.schema_add'), text="Add Field Type") }}
+    </div>
   </div>
 	<table class="table table-striped">
 		<tr>
@@ -28,12 +28,8 @@
 			<td>{{ schema.data_type }}</td>
       <td>
         <div class="btn-group pull-right" role="group" aria-hidden="true">
-          <a href="{{url_for('unis.schema_delete', schema_id=schema.id)}}" class="btn btn-default">
-            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-          </a>
-          <a href="{{url_for('unis.schema_edit', schema_id=schema.id)}}" class="btn btn-default">
-            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-          </a>
+          {{buttons.remove(url_for('unis.schema_delete', schema_id=schema.id))}}
+          {{buttons.edit(url_for('unis.schema_edit', schema_id=schema.id))}}
         </div>
       </td>
 		</tr>
