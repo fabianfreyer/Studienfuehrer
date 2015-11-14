@@ -56,7 +56,7 @@ def uni_add_subject(uni_id):
         db.session.add(name)
         # Flush the db session, so we can see what the ID of the newly added uni is
         db.session.flush()
-        return redirect(url_for('', uni_id=uni.id))
+        return redirect(url_for('unis.detail', uni_id=uni.id))
     return render_template("basic_form.html", form=form)
 
 @unis.route('/add/uni', methods=('GET', 'POST'))
@@ -81,5 +81,5 @@ def uni_add():
         db.session.add(name)
         # Flush the db session, so we can see what the ID of the newly added uni is
         db.session.flush()
-        return redirect(url_for('', uni_id=uni.id))
+        return redirect(url_for('unis.detail', uni_id=uni.id))
     return render_template("uni_add.html", form=form)
