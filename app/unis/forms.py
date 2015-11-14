@@ -13,6 +13,22 @@ class SchemaForm(Form):
    permit_comment = BooleanField('Permit Comment')
    submit = SubmitField()
 
+class FieldAddSelectTypeForm(Form):
+    field_type = SelectField('Field Type', coerce=int)
+    submit = SubmitField('Next')
+
+class FieldAddForm(Form):
+    @classmethod
+    def add_field(cls, name, field):
+        """
+        Helper function to add a field to this form
+        """
+        setattr(cls, name, field)
+        return cls
+
+    comment = TextAreaField('Comment')
+    submit = SubmitField()
+
 class SubjectAddForm(Form):
     name = StringField('Name', validators=[Required()])
     uni = SelectField('University', coerce=int)
