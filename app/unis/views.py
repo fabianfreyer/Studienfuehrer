@@ -34,6 +34,30 @@ def uni(uni_id):
         abort(404)
     return render_template("uni.html", uni=uni)
 
+@unis.route('/uni/<int:uni_id>/add_subject', methods=('GET', 'POST'))
+def uni_add_subject(uni_id):
+    """
+    Add a subject to a uni
+    """
+    form = forms.SubjectAddForm()
+    # Since we already know what the uni will be, don't show a dropdown for it
+    del form.uni
+    if form.validate_on_submit():
+        # Get the uni to add the subject to
+        uni = models.Uni.query.get(uni_id)
+        subject = models.Subject(uni)
+        # Fetch the name field schema instance
+        name_schema = models.Schema.query.filter_by(name='name').first()
+        # Create a name field for the subject
+        name = models.TextField(name_schema, subject)
+        name.value = form.name.data
+        db.session.add(subject)
+        db.session.add(name)
+        # Flush the db session, so we can see what the ID of the newly added uni is
+        db.session.flush()
+        return redirect(url_for('unis.uni', uni_id=uni.id))
+    return render_template("basic_form.html", form=form)
+
 @unis.route('/uni/add', methods=('GET', 'POST'))
 @login_required
 def uni_add():

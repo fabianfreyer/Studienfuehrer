@@ -13,6 +13,11 @@ class SchemaForm(Form):
    permit_comment = BooleanField('Permit Comment')
    submit = SubmitField()
 
+class SubjectAddForm(Form):
+    name = StringField('Name', validators=[Required()])
+    uni = SelectField('University', coerce=int)
+    submit = SubmitField()
+
 class UniAddForm(Form):
     name = StringField('Name', validators=[Required()])
     city = SelectField('City', coerce=int)
