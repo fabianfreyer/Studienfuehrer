@@ -1,0 +1,32 @@
+{#-
+Create some helper functions to show fields
+-#}
+
+{% import "buttons.html" as buttons %}
+
+{% macro add_button(container) %}
+  {{ buttons.add(url_for('unis.add_field_select_type', container_id=container.id), text="Add Field") }}
+{% endmacro %}
+
+{% macro remove_button(field) %}
+  {{ buttons.remove(url_for('unis.delete_field', field_id=field.id)) }}
+{% endmacro %}
+
+{% macro table(container) %}
+  <table class='table'>
+    {% for field_name, field in container.fields.iteritems() %}
+    <tr>
+      <td>{{field_name}}</td>
+      <td>{{field.value}}</td>
+      {% if current_user.is_authenticated %}
+        <td class="pull-right">
+          <div class="btn-group">
+            {{ remove_button(field) }}
+          </div>
+        </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+{% endmacro %}
+

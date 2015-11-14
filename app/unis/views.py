@@ -2,7 +2,7 @@ from . import unis
 from . import models
 from . import forms
 from .. import db
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, abort
 from flask.ext.login import login_required
 
 @unis.route('/cities/')
@@ -26,6 +26,13 @@ def city_add():
         db.session.add(name)
         return redirect(url_for('unis.cities'))
     return render_template("city_add.html", form=form)
+
+@unis.route('/uni/<int:uni_id>')
+def uni(uni_id):
+    uni = models.Uni.query.get(uni_id)
+    if uni is None:
+        abort(404)
+    return render_template("uni.html", uni=uni)
 
 @unis.route('/uni/add', methods=('GET', 'POST'))
 @login_required

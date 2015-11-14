@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "buttons.html" as buttons %}
+{% import "fields.html" as fields with context %}
+
+{% block page_content %}
+	<h1>{{uni.fields['name'].value}}</h1>
+
+	{# General uni information #}
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<h2 class="panel-title pull-left">General</h2>
+      {% if current_user.is_authenticated %}
+			{# FIXME: check for admin #}
+      <div class="btn-group pull-right" role="group" aria-label="university-actions">
+        {{ buttons.link(url_for('unis.uni_add_subject', uni_id=uni.id), icon='plus', text='Add Subject') }}
+        {{ fields.add_button(uni) }}
+      </div>
+			{% endif %}
+		</div>
+    {{ fields.table(uni) }}
+	</div>
+
+	{# City info #}
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<h2 class="panel-title pull-left">{{ uni.parent.fields['name'].value }}</h2>
+      {% if current_user.is_authenticated %}
+			{# FIXME: check for admin #}
+      <div class="btn-group pull-right" role="group" aria-label="city-actions">
+        {{ fields.add_button(uni.parent) }}
+      </div>
+      {% endif %}
+		</div>
+    {{ fields.table(uni.parent) }}
+	</div>
+
+	{# List all subjects offered by uni #}
+	{% for subject in uni.children %}
+	<div class="panel panel-default">
+		<div class="panel-heading clearfix">
+			<h2 class="panel-title">{{subject.fields['name'].value}}</h2>
+      {% if current_user.is_authenticated %}
+			{# FIXME: check for admin #}
+      <div class="btn-group pull-right" role="group" aria-label="city-actions">
+        {{ fields.add_button(subject) }}
+      </div>
+      {% endif %}
+		</div>
+    {{ fields.table(subject) }}
+	</div>
+	{% endfor %}
+{% endblock %}
