@@ -3,21 +3,21 @@
 
 {% block page_content %}
 <div class="page_header">
-	<h1>Administrate Field Types</h1>
+	<h1>{% trans %}Administrate Field Types{% endtrans %}</h1>
 </div>
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
-    <span class="pull-left">Available Fields</span>
+		<span class="pull-left">{% trans %}Available Fields{% endtrans %}</span>
     <div class="btn-group pull-right">
-      {{ buttons.add(url_for('field_storage.schema_add'), text="Add Field Type") }}
+      {{ buttons.add(url_for('field_storage.schema_add'), text=_("Add Field Type")) }}
     </div>
   </div>
 	<table class="table table-striped">
 		<tr>
-			<th>Name</th>
-      <th>Description</th>
-			<th>Permit Comment</th>
-			<th>Datatype</th>
+			<th>{% trans %}Name{% endtrans %}</th>
+			<th>{% trans %}Description{% endtrans %}</th>
+			<th>{% trans %}Permit Comment{% endtrans %}</th>
+			<th>{% trans %}Datatype{% endtrans %}</th>
       <th></th>
 		</tr>
 	{% for schema in schemata %}

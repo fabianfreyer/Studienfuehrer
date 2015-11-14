@@ -1,20 +1,21 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField
 from wtforms.validators import Required
+from flask.ext.babel import lazy_gettext as _
 
 class SchemaForm(Form):
    name = StringField('Name', validators=[Required()])
    description = TextAreaField('Description', validators=[Required()])
    data_type = SelectField('Type',
-           choices=[('textfield', 'Text'),
-                    ('integerfield', 'Numeric'),
-                    ('boolean', 'Boolean')])
-   permit_comment = BooleanField('Permit Comment')
+           choices=[('textfield', _('Text')),
+                    ('integerfield', _('Numeric')),
+                    ('boolean', _('Boolean'))])
+   permit_comment = BooleanField(_('Permit Comment'))
    submit = SubmitField()
 
 class FieldAddSelectTypeForm(Form):
     field_type = SelectField('Field Type', coerce=int)
-    submit = SubmitField('Next')
+    submit = SubmitField(_('Next'))
 
 class FieldAddForm(Form):
     @classmethod
@@ -25,5 +26,5 @@ class FieldAddForm(Form):
         setattr(cls, name, field)
         return cls
 
-    comment = TextAreaField('Comment')
+    comment = TextAreaField(_('Comment'))
     submit = SubmitField()

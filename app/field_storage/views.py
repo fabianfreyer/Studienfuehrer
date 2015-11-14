@@ -4,6 +4,7 @@ from . import forms
 from .. import db
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_required
+from flask.ext.babel import lazy_gettext as _
 
 @field_storage.route('/admin/schema/')
 @login_required
@@ -51,7 +52,7 @@ def schema_delete(schema_id):
     schema = models.Schema.query.get(schema_id)
     # Check if there are still fields with this schema left
     if models.Field.query.filter_by(field_type=schema).count() != 0:
-        flash('Cannot delete: there are still values for this field in the database')
+        flash(_('Cannot delete field: there are still values for this field in the database'))
     else:
         db.session.delete(schema)
         flash('Deleted field: %s' % schema.name)
@@ -124,7 +125,7 @@ def delete_field(field_id):
     field = models.Field.query.get(field_id)
     # delete the field
     if not field:
-        flash("No such field!")
+        flash(_("Cannot delete field: No such field"))
     else:
         db.session.delete(field)
 

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Forbidden{% endblock %}
+{% block title %}{% trans %}Forbidden{% endtrans %}{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h1>403 Forbidden</h1>
+	<h1>403 - {% trans %}Forbidden{% endtrans %}</h1>
 </div>
 {% endblock %}

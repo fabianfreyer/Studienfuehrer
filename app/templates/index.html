@@ -1,1 +1,22 @@
 {% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron">
+	  <div class="container">
+			<h1>{% trans %}University Guide{% endtrans %}</h1>
+			<p><a class="btn btn-primary btn-lg" href="{{url_for('unis.by_city')}}" role="button">{% trans %}I know where I want to go{% endtrans %}</a></p>
+		</div>
+</div>
+<div class="container">
+	{% block page_content %}
+		<p>
+		{% trans %}This University guide is a collaboration of the{% endtrans %}
+		<ul>
+			<li><a href="zapfev.de">ZaPF</a></li>
+			<li><a href="kif.fsinf.de">KIF</a></li>
+			<li><a href="die-koma.org">KoMa</a></li>
+		</ul>
+	{% endblock %}
+</div>
+{% endblock %}
+

@@ -5,7 +5,7 @@ Create some helper functions to show fields
 {% import "buttons.html" as buttons %}
 
 {% macro add_button(container) %}
-  {{ buttons.add(url_for('field_storage.add_field_select_type', container_id=container.id), text="Add Field") }}
+  {{ buttons.add(url_for('field_storage.add_field_select_type', container_id=container.id), text=_("Add Field")) }}
 {% endmacro %}
 
 {% macro remove_button(field) %}

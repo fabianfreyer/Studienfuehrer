@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Internal Server Error{% endblock %}
+{% block title %}{% trans %}Internal Server Error{% endtrans %}{% endblock %}
 
 {% block page_content %}
 <div class="page-html">
-    <h1>500 - Internal Server Error</h1>
+	<h1>500 - {% trans %}Internal Server Error{% endtrans %}</h1>
 </div>
 {% endblock %}

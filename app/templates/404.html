@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Page Not Found{% endblock %}
+{% block title %}{% trans %}Page Not Found{% endtrans %}{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h1>404 - Not Found</h1>
+	<h1>404 - {% trans %}Not Found{% endtrans %}</h1>
 </div>
 {% endblock %}
