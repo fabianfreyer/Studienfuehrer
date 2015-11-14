@@ -14,7 +14,7 @@ class SchemaForm(Form):
    submit = SubmitField()
 
 class FieldAddSelectTypeForm(Form):
-    field_type = SelectField('Field Type', coerce=int)
+    field_type = SelectField(_('Field Type'), coerce=int)
     submit = SubmitField(_('Next'))
 
 class FieldAddForm(Form):

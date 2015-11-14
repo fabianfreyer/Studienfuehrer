@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+	<h1>{% trans container=container.fields['name'].value %}Add Field to "{{container}}"{% endtrans %}</h1>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+			<span class=panel-title">{% trans %}Select field type{% endtrans %}</span>
+    </div>
+    <div class="panel-body">
+      <form action method="post" class="form-horizontal" role="form">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group row">
+          {{form.field_type.label(class_="col-sm-2 control-label")}}
+					<div class="col-sm-10">
+						<div class="input-group">
+						{{ form.field_type(class_="form-control") }}
+						<span class="input-group-btn">
+							<a href="{{ url_for('field_storage.schema_add') }}" class="btn btn-default">Add Field Type</a>
+						</span>
+						</div>
+					</div>
+        </div>
+
+        <div class="form-group ">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-10">{{form.submit(class_="btn btn-primary")}}</div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

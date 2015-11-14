@@ -72,7 +72,7 @@ def add_field_select_type(container_id):
             if schema.name not in container.fields]
     if form.validate_on_submit():
         return redirect(url_for('field_storage.add_field_values', container_id=container_id, schema_id=form.field_type.data))
-    return render_template('basic_form.html', form=form)
+    return render_template('field_type_select.html', form=form, container=container)
 
 def container_view(container):
     """
