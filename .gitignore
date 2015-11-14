@@ -10,3 +10,7 @@
 
 # Ignore vim swap files
 *.swp
+
+# Translations
+messages.pot
+*.mo
