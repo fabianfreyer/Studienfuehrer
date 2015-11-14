@@ -1,5 +1,7 @@
 from .. import db
 from sqlalchemy.orm.collections import attribute_mapped_collection
+import wtforms
+from wtforms.validators import Required
 
 class Schema(db.Model):
     """
@@ -11,11 +13,10 @@ class Schema(db.Model):
     description = db.Column(db.Text())
     permit_comment = db.Column(db.Boolean())
     weight = db.Column(db.Integer)
-    data_type = db.Column(db.Enum("textfield", "numericfield", "boolean"))
+    data_type = db.Column(db.Enum("textfield", "integerfield", "boolean"))
 
     def __repr__(self):
         return "<Field: (%s) %s>" % (self.data_type, self.name)
-
 
 class Field(db.Model):
     """
@@ -23,6 +24,8 @@ class Field(db.Model):
     """
     __tablename__ = 'field'
     id = db.Column(db.Integer, primary_key=True)
+    widget = None
+    validators = []
     type_id = db.Column(db.Integer, db.ForeignKey('field_schema.id'))
     container_id = db.Column(db.Integer, db.ForeignKey('container.id'))
     container = db.relationship('Container',
@@ -74,6 +77,7 @@ class TextField(Field):
             }
     id = db.Column(db.Integer, db.ForeignKey('field.id'), primary_key=True)
     value = db.Column(db.String)
+    widget = wtforms.StringField
 
     def __repr__(self):
         return "TextField(%s: %s)" % (self.name, self.value)
@@ -86,9 +90,29 @@ class IntegerField(Field):
             }
     id = db.Column(db.Integer, db.ForeignKey('field.id'), primary_key=True)
     value = db.Column(db.Integer)
+    # FIXME: add an integer validator here
+    widget = wtforms.StringField
 
     def __repr__(self):
         return "IntField(%s: %d)" % (self.name, self.value)
+
+class BooleanField(Field):
+    __tablename__ = 'booleanfield'
+    __mapper_args__ = {
+            'polymorphic_identity': 'boolean'
+            }
+    id = db.Column(db.Integer, db.ForeignKey('field.id'), primary_key=True)
+    value = db.Column(db.Boolean())
+    widget = wtforms.BooleanField
+
+    def __repr__(self):
+        return "BooleanField(%s: %d)" % (self.name, self.value)
+
+field_models = {
+    'textfield':  TextField,
+    'boolean': BooleanField,
+    'integerfield': IntegerField,
+}
 
 
 class Container(db.Model):

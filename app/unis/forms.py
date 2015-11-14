@@ -8,7 +8,7 @@ class SchemaForm(Form):
    description = TextAreaField('Description', validators=[Required()])
    data_type = SelectField('Type',
            choices=[('textfield', 'Text'),
-                    ('numericfield', 'Numeric'),
+                    ('integerfield', 'Numeric'),
                     ('boolean', 'Boolean')])
    permit_comment = BooleanField('Permit Comment')
    submit = SubmitField()
