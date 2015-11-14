@@ -8,6 +8,8 @@ from app.field_storage.models import Schema, Field
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 
+basedir = os.path.dirname(os.path.abspath(__file__))
+
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
 manager = Manager(app)
@@ -63,6 +65,28 @@ def initdb():
         name.data_type = "textfield"
         db.session.add(name)
     db.session.commit()
+
+@manager.command
+def translation(action):
+    """
+    Update translations
+    """
+    from babel.messages.frontend import CommandLineInterface
+    # Update translations
+    if action == "compile":
+        CommandLineInterface().run(['pybabel', 'compile',
+            '-d', os.path.join(basedir, 'app', 'translations')])
+    elif action == "update":
+        CommandLineInterface().run(['pybabel', 'extract',
+            '-F', os.path.join(basedir, 'app', 'babel.cfg'),
+            '-k', '_',
+            '-o', os.path.join(basedir, 'app', 'messages.pot'),
+            os.path.join(basedir, 'app')])
+        CommandLineInterface().run(['pybabel', 'update',
+            '-i', os.path.join(basedir, 'app', 'messages.pot'),
+            '-d', os.path.join(basedir, 'app', 'translations')])
+    else:
+        raise Exception("no action specified")
 
 @manager.command
 def test():
