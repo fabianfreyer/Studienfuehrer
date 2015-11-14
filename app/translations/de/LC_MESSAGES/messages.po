@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
-"POT-Creation-Date: 2015-11-14 22:00+0100\n"
+"POT-Creation-Date: 2015-11-14 22:51+0100\n"
 "PO-Revision-Date: 2015-11-14 20:18+0100\n"
 "Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
 "Language: de\n"
@@ -55,6 +55,10 @@ msgstr "Wahrheitswert"
 msgid "Permit Comment"
 msgstr "Kommentar erlaubt"
 
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:17
+msgid "Field Type"
+msgstr "Feld-Typ"
+
 #: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:18
 msgid "Next"
 msgstr "Weiter"
@@ -65,7 +69,9 @@ msgstr "Kommentar"
 
 #: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/views.py:55
 msgid "Cannot delete field: there are still values for this field in the database"
-msgstr "Feld konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld in der Datenbank"
+msgstr ""
+"Feld konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld in "
+"der Datenbank"
 
 #: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/views.py:128
 msgid "Cannot delete field: No such field"
@@ -137,6 +143,7 @@ msgid "Overview by city"
 msgstr "Übersicht nach Stadt"
 
 #: /Users/fabian/Projects/topf/studienfuehrer/app/templates/field_add.html:5
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/field_type_select.html:5
 #, python-format
 msgid "Add Field to \"%(container)s\""
 msgstr "Feld zu \"%(container)s\" hinzufügen"
@@ -145,6 +152,10 @@ msgstr "Feld zu \"%(container)s\" hinzufügen"
 #: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:18
 msgid "Description"
 msgstr "Beschreibung"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/field_type_select.html:8
+msgid "Select field type"
+msgstr "Feld-Typ auswählen"
 
 #: /Users/fabian/Projects/topf/studienfuehrer/app/templates/fields.html:8
 msgid "Add Field"
