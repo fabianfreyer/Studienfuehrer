@@ -11,7 +11,7 @@ def schema_admin():
     schemata = models.Schema.query.all()
     return render_template("admin/schema.html", schemata=schemata)
 
-@field_storage.route('/admin/schema/add', methods=('GET', 'POST'))
+@field_storage.route('/add/schema', methods=('GET', 'POST'))
 @login_required
 def schema_add():
     form = forms.SchemaForm()
@@ -25,7 +25,7 @@ def schema_add():
         return redirect(url_for('field_storage.schema_admin'))
     return render_template('admin/schema_form.html', form=form)
 
-@field_storage.route('/admin/schema/edit/<int:schema_id>')
+@field_storage.route('/edit/schema/<int:schema_id>')
 @login_required
 def schema_edit(schema_id):
     """
@@ -42,7 +42,7 @@ def schema_edit(schema_id):
         return redirect(url_for('field_storage.schema_admin'))
     return render_template('admin/schema_form.html', form=form)
 
-@field_storage.route('/admin/schema/delete/<int:schema_id>')
+@field_storage.route('/delete/schema/<int:schema_id>')
 @login_required
 def schema_delete(schema_id):
     """
@@ -64,7 +64,11 @@ def add_field_select_type(container_id):
     Add a Field to a container: Show a field type selector
     """
     form = forms.FieldAddSelectTypeForm()
-    form.field_type.choices = [(schema.id, schema.name) for schema in models.Schema.query.all()]
+    container = models.Container.query.get(container_id)
+    form.field_type.choices = [
+            (schema.id, schema.name)
+            for schema in models.Schema.query.all()
+            if schema.name not in container.fields]
     if form.validate_on_submit():
         return redirect(url_for('field_storage.add_field_values', container_id=container_id, schema_id=form.field_type.data))
     return render_template('basic_form.html', form=form)
@@ -74,11 +78,11 @@ def container_view(container):
     Helper function to redirect to the adequate view for a container
     """
     if container.container_type == 'uni':
-        return redirect(url_for('unis.uni', uni_id=container_id))
+        return redirect(url_for('unis.detail', uni_id=container_id))
     elif container.container_type == 'city':
-        return redirect(url_for('unis.cities')),
+        return redirect(url_for('unis.by_city')),
     elif container.container_type == 'subject':
-        return redirect(url_for('unis.uni', uni_id=container.parent.id)),
+        return redirect(url_for('unis.detail', uni_id=container.parent.id)),
 
 
 @field_storage.route('/add/field/<int:container_id>/<int:schema_id>', methods=('GET', 'POST'))

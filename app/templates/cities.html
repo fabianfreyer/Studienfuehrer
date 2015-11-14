@@ -10,7 +10,7 @@
 		<div class="panel-body">
 			<ul>
 			{% for uni in city.children %}
-				<li><a href="{{ url_for('unis.uni', uni_id=uni.id) }}">{{uni.fields['name'].value}}</a></li>
+				<li><a href="{{ url_for('unis.detail', uni_id=uni.id) }}">{{uni.fields['name'].value}}</a></li>
 			{% endfor %}
 			</ul>
 		</div>

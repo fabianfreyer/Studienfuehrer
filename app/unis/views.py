@@ -6,12 +6,12 @@ from .. import field_storage
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask.ext.login import login_required
 
-@unis.route('/cities/')
-def cities():
+@unis.route('/uni/by_city')
+def by_city():
     cities = models.City.query.options(db.joinedload('children')).all()
     return render_template("cities.html", cities=cities)
 
-@unis.route('/city/add', methods=('GET', 'POST'))
+@unis.route('/add/city', methods=('GET', 'POST'))
 @login_required
 def city_add():
     form = forms.CityAddForm()
@@ -25,17 +25,17 @@ def city_add():
         name.value = form.name.data
         db.session.add(city)
         db.session.add(name)
-        return redirect(url_for('unis.cities'))
+        return redirect(url_for('unis.by_city'))
     return render_template("city_add.html", form=form)
 
 @unis.route('/uni/<int:uni_id>')
-def uni(uni_id):
+def detail(uni_id):
     uni = models.Uni.query.get(uni_id)
     if uni is None:
         abort(404)
     return render_template("uni.html", uni=uni)
 
-@unis.route('/uni/<int:uni_id>/add_subject', methods=('GET', 'POST'))
+@unis.route('/uni/<int:uni_id>/add/subject', methods=('GET', 'POST'))
 def uni_add_subject(uni_id):
     """
     Add a subject to a uni
@@ -56,10 +56,10 @@ def uni_add_subject(uni_id):
         db.session.add(name)
         # Flush the db session, so we can see what the ID of the newly added uni is
         db.session.flush()
-        return redirect(url_for('unis.uni', uni_id=uni.id))
+        return redirect(url_for('', uni_id=uni.id))
     return render_template("basic_form.html", form=form)
 
-@unis.route('/uni/add', methods=('GET', 'POST'))
+@unis.route('/add/uni', methods=('GET', 'POST'))
 @login_required
 def uni_add():
     """
@@ -81,5 +81,5 @@ def uni_add():
         db.session.add(name)
         # Flush the db session, so we can see what the ID of the newly added uni is
         db.session.flush()
-        return redirect(url_for('unis.uni', uni_id=uni.id))
+        return redirect(url_for('', uni_id=uni.id))
     return render_template("uni_add.html", form=form)
