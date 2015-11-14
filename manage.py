@@ -3,6 +3,7 @@ import os
 import config
 from app import create_app, db
 from app.auth.models import User, Role, Permission
+from app.unis.models import Schema
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 
@@ -40,6 +41,16 @@ def initdb():
     """
     db.create_all()
     Role.insert_roles()
+    if Schema.query.filter_by(name='name') is None:
+        # Create name field
+        name = Schema()
+        name.name = 'name'
+        name.description = 'A basic name field.'
+        name.permit_comment = False
+        name.weight = -1000
+        name.data_type = "textfield"
+        db.session.add(name)
+    db.session.commit()
 
 @manager.command
 def test():
