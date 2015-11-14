@@ -1,0 +1,203 @@
+# German translations for Studienführer.
+# Copyright (C) 2015 Fabian Freyer
+# Fabian Freyer <fabian.freyer@physik.tu-berlin.de>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
+"POT-Creation-Date: 2015-11-14 22:00+0100\n"
+"PO-Revision-Date: 2015-11-14 20:18+0100\n"
+"Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.1.1\n"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/auth/forms.py:8
+msgid "Username"
+msgstr "Benutzername"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/auth/forms.py:9
+msgid "Password"
+msgstr "Passwort"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/auth/forms.py:10
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/auth/login.html:6
+msgid "Login"
+msgstr "Anmelden"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/auth/views.py:18
+msgid "Wrong username or password"
+msgstr "Falscher Benutzername oder Passwort"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/auth/views.py:26
+msgid "Successfully logged out."
+msgstr "Erfolgreich abgemeldet"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:10
+msgid "Text"
+msgstr "Text"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:11
+msgid "Numeric"
+msgstr "Numerisch"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:12
+msgid "Boolean"
+msgstr "Wahrheitswert"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:13
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:19
+msgid "Permit Comment"
+msgstr "Kommentar erlaubt"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:18
+msgid "Next"
+msgstr "Weiter"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/forms.py:29
+msgid "Comment"
+msgstr "Kommentar"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/views.py:55
+msgid "Cannot delete field: there are still values for this field in the database"
+msgstr "Feld konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld in der Datenbank"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/field_storage/views.py:128
+msgid "Cannot delete field: No such field"
+msgstr "Feld konnte nicht gelöscht werden: Feld nicht gefunden"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/403.html:3
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/403.html:7
+msgid "Forbidden"
+msgstr "Zugriff Verboten"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/404.html:3
+msgid "Page Not Found"
+msgstr "Seite nicht gefunden"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/404.html:7
+msgid "Not Found"
+msgstr "Seite nicht gefunden"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/500.html:3
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/500.html:7
+msgid "Internal Server Error"
+msgstr "Interner Serverfehler"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:3
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/index.html:6
+msgid "University Guide"
+msgstr "Studienführer"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:10
+msgid "Toggle navigation"
+msgstr "Navigation ein/ausblenden"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:15
+msgid "UG"
+msgstr "STphi"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:19
+msgid "Cities"
+msgstr "Städte"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:26
+msgid "Admin"
+msgstr "Administration"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:28
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/city_add.html:5
+msgid "Add City"
+msgstr "Stadt hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:29
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/uni_add.html:5
+msgid "Add Uni"
+msgstr "Uni hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:30
+msgid "Schema"
+msgstr "Schema"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:33
+msgid "Log Out"
+msgstr "Ausloggen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/base.html:35
+msgid "Log In"
+msgstr "Anmelden"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/cities.html:4
+msgid "Overview by city"
+msgstr "Übersicht nach Stadt"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/field_add.html:5
+#, python-format
+msgid "Add Field to \"%(container)s\""
+msgstr "Feld zu \"%(container)s\" hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/field_add.html:15
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:18
+msgid "Description"
+msgstr "Beschreibung"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/fields.html:8
+msgid "Add Field"
+msgstr "Feld hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/index.html:7
+msgid "I know where I want to go"
+msgstr "Ich weiß, wo ich hinmöchte"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/index.html:13
+msgid "This University guide is a collaboration of the"
+msgstr "Dieser Studienführer ist eine Kollaboration der Bundesfachschaftentagungen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/uni.html:11
+msgid "General"
+msgstr "Allgemein"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/uni.html:15
+msgid "Add Subject"
+msgstr "Fach hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:6
+msgid "Administrate Field Types"
+msgstr "Feld-Typen adminstrieren"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:10
+msgid "Available Fields"
+msgstr "Verfügbare Felder"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:12
+msgid "Add Field Type"
+msgstr "Feld-Typ hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:17
+#: /Users/fabian/Projects/topf/studienfuehrer/app/unis/forms.py:7
+#: /Users/fabian/Projects/topf/studienfuehrer/app/unis/forms.py:12
+#: /Users/fabian/Projects/topf/studienfuehrer/app/unis/forms.py:17
+msgid "Name"
+msgstr "Name"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema.html:20
+msgid "Datatype"
+msgstr "Datentyp"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/admin/schema_form.html:5
+msgid "Add field type"
+msgstr "Feld-Typ hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/unis/forms.py:8
+msgid "University"
+msgstr "Universität"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/unis/forms.py:13
+msgid "City"
+msgstr "Stadt"
+
