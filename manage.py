@@ -3,7 +3,8 @@ import os
 import config
 from app import create_app, db
 from app.auth.models import User, Role, Permission
-from app.unis.models import Schema
+from app.unis.models import Uni, City, Subject
+from app.field_storage.models import Schema, Field
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 
@@ -13,7 +14,18 @@ manager = Manager(app)
 migrate = Migrate(app, db)
 
 def make_shell_context():
-    return dict(app=app, db=db, User=User, Role=Role, Permission=Permission)
+    return {
+        'app': app,
+        'db': db,
+        'User': User,
+        'Role': Role,
+        'Permission': Permission,
+        'Schema': Schema,
+        'Field': Field,
+        'Uni': Uni,
+        'City': City,
+        'Subject': Subject
+    }
 
 manager.add_command('db', MigrateCommand)
 manager.add_command('shell', Shell(make_context=make_shell_context))

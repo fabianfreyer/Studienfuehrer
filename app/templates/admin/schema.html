@@ -9,7 +9,7 @@
   <div class="panel-heading clearfix">
     <span class="pull-left">Available Fields</span>
     <div class="btn-group pull-right">
-      {{ buttons.add(url_for('unis.schema_add'), text="Add Field Type") }}
+      {{ buttons.add(url_for('field_storage.schema_add'), text="Add Field Type") }}
     </div>
   </div>
 	<table class="table table-striped">
@@ -28,8 +28,8 @@
 			<td>{{ schema.data_type }}</td>
       <td>
         <div class="btn-group pull-right" role="group" aria-hidden="true">
-          {{buttons.remove(url_for('unis.schema_delete', schema_id=schema.id))}}
-          {{buttons.edit(url_for('unis.schema_edit', schema_id=schema.id))}}
+          {{buttons.remove(url_for('field_storage.schema_delete', schema_id=schema.id))}}
+          {{buttons.edit(url_for('field_storage.schema_edit', schema_id=schema.id))}}
         </div>
       </td>
 		</tr>

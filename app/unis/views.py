@@ -2,6 +2,7 @@ from . import unis
 from . import models
 from . import forms
 from .. import db
+from .. import field_storage
 from flask import render_template, redirect, request, url_for, flash, abort
 from flask.ext.login import login_required
 
@@ -18,9 +19,9 @@ def city_add():
         # Create a city instance
         city = models.City()
         # Fetch the name field schema instance
-        name_schema = models.Schema.query.filter_by(name='name').first()
+        name_schema = field_storage.models.Schema.query.filter_by(name='name').first()
         # Create a name field for the city
-        name = models.TextField(name_schema, city)
+        name = field_storage.models.TextField(name_schema, city)
         name.value = form.name.data
         db.session.add(city)
         db.session.add(name)
@@ -47,9 +48,9 @@ def uni_add_subject(uni_id):
         uni = models.Uni.query.get(uni_id)
         subject = models.Subject(uni)
         # Fetch the name field schema instance
-        name_schema = models.Schema.query.filter_by(name='name').first()
+        name_schema = field_storage.models.Schema.query.filter_by(name='name').first()
         # Create a name field for the subject
-        name = models.TextField(name_schema, subject)
+        name = field_storage.models.TextField(name_schema, subject)
         name.value = form.name.data
         db.session.add(subject)
         db.session.add(name)
@@ -72,9 +73,9 @@ def uni_add():
         city = models.City.query.get(form.city.data)
         uni = models.Uni(city)
         # Fetch the name field schema instance
-        name_schema = models.Schema.query.filter_by(name='name').first()
+        name_schema = field_storage.models.Schema.query.filter_by(name='name').first()
         # Create a name field for the uni
-        name = models.TextField(name_schema, uni)
+        name = field_storage.models.TextField(name_schema, uni)
         name.value = form.name.data
         db.session.add(uni)
         db.session.add(name)

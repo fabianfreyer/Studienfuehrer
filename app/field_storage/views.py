@@ -1,17 +1,17 @@
-from . import unis
+from . import field_storage
 from . import models
 from . import forms
 from .. import db
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_required
 
-@unis.route('/admin/schema/')
+@field_storage.route('/admin/schema/')
 @login_required
 def schema_admin():
     schemata = models.Schema.query.all()
     return render_template("admin/schema.html", schemata=schemata)
 
-@unis.route('/admin/schema/add', methods=('GET', 'POST'))
+@field_storage.route('/admin/schema/add', methods=('GET', 'POST'))
 @login_required
 def schema_add():
     form = forms.SchemaForm()
@@ -22,10 +22,10 @@ def schema_add():
         schema.permit_comment = form.permit_comment.data
         schema.data_type = form.data_type.data
         db.session.add(schema)
-        return redirect(url_for('unis.schema_admin'))
+        return redirect(url_for('field_storage.schema_admin'))
     return render_template('admin/schema_form.html', form=form)
 
-@unis.route('/admin/schema/edit/<int:schema_id>')
+@field_storage.route('/admin/schema/edit/<int:schema_id>')
 @login_required
 def schema_edit(schema_id):
     """
@@ -39,10 +39,10 @@ def schema_edit(schema_id):
         schema.permit_comment = form.permit_comment.data
         schema.data_type = form.data_type.data
         db.session.add(schema)
-        return redirect(url_for('unis.schema_admin'))
+        return redirect(url_for('field_storage.schema_admin'))
     return render_template('admin/schema_form.html', form=form)
 
-@unis.route('/admin/schema/delete/<int:schema_id>')
+@field_storage.route('/admin/schema/delete/<int:schema_id>')
 @login_required
 def schema_delete(schema_id):
     """
@@ -55,9 +55,9 @@ def schema_delete(schema_id):
     else:
         db.session.delete(schema)
         flash('Deleted field: %s' % schema.name)
-    return redirect(url_for('unis.schema_admin'))
+    return redirect(url_for('field_storage.schema_admin'))
 
-@unis.route('/add/field/<int:container_id>/', methods=('GET', 'POST'))
+@field_storage.route('/add/field/<int:container_id>/', methods=('GET', 'POST'))
 @login_required
 def add_field_select_type(container_id):
     """
@@ -66,7 +66,7 @@ def add_field_select_type(container_id):
     form = forms.FieldAddSelectTypeForm()
     form.field_type.choices = [(schema.id, schema.name) for schema in models.Schema.query.all()]
     if form.validate_on_submit():
-        return redirect(url_for('unis.add_field_values', container_id=container_id, schema_id=form.field_type.data))
+        return redirect(url_for('field_storage.add_field_values', container_id=container_id, schema_id=form.field_type.data))
     return render_template('basic_form.html', form=form)
 
 def container_view(container):
@@ -81,7 +81,7 @@ def container_view(container):
         return redirect(url_for('unis.uni', uni_id=container.parent.id)),
 
 
-@unis.route('/add/field/<int:container_id>/<int:schema_id>', methods=('GET', 'POST'))
+@field_storage.route('/add/field/<int:container_id>/<int:schema_id>', methods=('GET', 'POST'))
 @login_required
 def add_field_values(container_id, schema_id):
     """
@@ -111,7 +111,7 @@ def add_field_values(container_id, schema_id):
 
     return render_template('field_add.html', form=form, schema=schema, container=container)
 
-@unis.route('/delete/field/<int:field_id>')
+@field_storage.route('/delete/field/<int:field_id>')
 @login_required
 def delete_field(field_id):
     """
