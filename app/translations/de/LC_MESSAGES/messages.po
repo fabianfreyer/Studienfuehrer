@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
-"POT-Creation-Date: 2015-11-14 22:51+0100\n"
+"POT-Creation-Date: 2015-11-15 01:44+0100\n"
 "PO-Revision-Date: 2015-11-14 20:18+0100\n"
 "Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
 "Language: de\n"
@@ -160,6 +160,20 @@ msgstr "Feld-Typ auswählen"
 #: /Users/fabian/Projects/topf/studienfuehrer/app/templates/fields.html:8
 msgid "Add Field"
 msgstr "Feld hinzufügen"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/fields.html:18
+#, python-format
+msgid "Updated over %(days)s day ago"
+msgid_plural "Updated over %(days)s days ago"
+msgstr[0] "Vor über %(days)s Tag aktualisiert"
+msgstr[1] "Vor über %(days)s Tagen aktualisiert"
+
+#: /Users/fabian/Projects/topf/studienfuehrer/app/templates/fields.html:19
+#, python-format
+msgid "%(days)s day"
+msgid_plural "%(days)s days"
+msgstr[0] "%(days)s Tag"
+msgstr[1] "%(days)s Tage"
 
 #: /Users/fabian/Projects/topf/studienfuehrer/app/templates/index.html:7
 msgid "I know where I want to go"

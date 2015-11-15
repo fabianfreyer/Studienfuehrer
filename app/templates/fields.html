@@ -12,6 +12,15 @@ Create some helper functions to show fields
   {{ buttons.remove(url_for('field_storage.delete_field', field_id=field.id)) }}
 {% endmacro %}
 
+{% macro field_outdated_warning(field, class_="pull-right") %}
+  {% if field.outdated %}
+    <span class="{{class_}}" data-toggle="tooltip"
+            title="{% trans days=field.age.days %}Updated over {{days}} day ago{% pluralize %}Updated over {{days}} days ago{% endtrans %}">
+      <span class="text-muted"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> {% trans days=field.age.days %}{{days}} day{% pluralize %}{{days}} days{% endtrans %}</span>
+    </span>
+  {% endif %}
+{% endmacro %}
+
 {% macro table(container) %}
   <ul class="list-group">
     {% for field_name, field in container.fields.iteritems() %}
@@ -19,6 +28,7 @@ Create some helper functions to show fields
       <div class="col-sm-2"><strong>{{field_name}}</strong></div>
       <div class="col-sm-9 clearfix">
         {{field.value}}
+        {{field_outdated_warning(field)}}
         {% if field.field_type.permit_comment %}
           <p class="text-info">{{field.comment}}</p>
         {% endif %}
