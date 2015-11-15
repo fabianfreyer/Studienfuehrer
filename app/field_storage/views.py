@@ -110,6 +110,7 @@ def add_field_values(container_id, schema_id):
     form = build_field_form(schema)
 
     if form.validate_on_submit():
+        model = models.field_models[schema.data_type]
         field = model(schema, container)
         field.value = form.value.data
         if schema.permit_comment:
