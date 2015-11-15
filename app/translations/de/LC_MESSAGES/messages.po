@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
-"POT-Creation-Date: 2015-11-15 03:21+0100\n"
+"POT-Creation-Date: 2015-11-15 04:03+0100\n"
 "PO-Revision-Date: 2015-11-14 20:18+0100\n"
 "Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
 "Language: de\n"
@@ -73,7 +73,7 @@ msgstr ""
 "Feld konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld in "
 "der Datenbank"
 
-#: app/field_storage/views.py:130
+#: app/field_storage/views.py:146
 msgid "Cannot delete field: No such field"
 msgstr "Feld konnte nicht gelöscht werden: Feld nicht gefunden"
 
@@ -142,13 +142,18 @@ msgstr "Anmelden"
 msgid "Overview by city"
 msgstr "Übersicht nach Stadt"
 
-#: app/templates/field_add.html:5
+#: app/templates/field_form.html:6
 #: app/templates/field_type_select.html:5
 #, python-format
 msgid "Add Field to \"%(container)s\""
 msgstr "Feld zu \"%(container)s\" hinzufügen"
 
-#: app/templates/field_add.html:15
+#: app/templates/field_form.html:8
+#, python-format
+msgid "Edit field \"%(name)s\""
+msgstr "Feld \"%(name)s\" bearbeiten"
+
+#: app/templates/field_form.html:19
 #: app/templates/admin/schema.html:18
 msgid "Description"
 msgstr "Beschreibung"
@@ -161,14 +166,14 @@ msgstr "Feld-Typ auswählen"
 msgid "Add Field"
 msgstr "Feld hinzufügen"
 
-#: app/templates/fields.html:18
+#: app/templates/fields.html:22
 #, python-format
 msgid "Updated over %(days)s day ago"
 msgid_plural "Updated over %(days)s days ago"
 msgstr[0] "Vor über %(days)s Tag aktualisiert"
 msgstr[1] "Vor über %(days)s Tagen aktualisiert"
 
-#: app/templates/fields.html:19
+#: app/templates/fields.html:23
 #, python-format
 msgid "%(days)s day"
 msgid_plural "%(days)s days"
