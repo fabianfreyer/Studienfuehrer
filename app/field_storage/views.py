@@ -79,7 +79,7 @@ def container_view(container):
     Helper function to redirect to the adequate view for a container
     """
     if container.container_type == 'uni':
-        return redirect(url_for('unis.detail', uni_id=container_id))
+        return redirect(url_for('unis.detail', uni_id=container.id))
     elif container.container_type == 'city':
         return redirect(url_for('unis.by_city')),
     elif container.container_type == 'subject':
