@@ -13,20 +13,22 @@ Create some helper functions to show fields
 {% endmacro %}
 
 {% macro table(container) %}
-  <table class='table'>
+  <ul class="list-group">
     {% for field_name, field in container.fields.iteritems() %}
-    <tr>
-      <td>{{field_name}}</td>
-      <td>{{field.value}}</td>
-      {% if current_user.is_authenticated %}
-        <td class="pull-right">
-          <div class="btn-group">
-            {{ remove_button(field) }}
-          </div>
-        </td>
-      {% endif %}
-    </tr>
+    <li class="list-group-item clearfix">
+      <div class="col-sm-2"><strong>{{field_name}}</strong></div>
+      <div class="col-sm-9 clearfix">
+        {{field.value}}
+      </div>
+      <div class="col-sm-1">
+        <div class="btn-group pull-right">
+        {% if current_user.is_authenticated %}
+          {{ remove_button(field) }}
+        {% endif %}
+        </div>
+      </div>
+    </li>
     {% endfor %}
-  </table>
+  </ul>
 {% endmacro %}
 
