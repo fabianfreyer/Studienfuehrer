@@ -175,6 +175,14 @@ msgid_plural "%(days)s days"
 msgstr[0] "%(days)s Tag"
 msgstr[1] "%(days)s Tage"
 
+#: app/templates/index.html:8
+msgid "A platform for comparing, filtering and reading about universities."
+msgstr "Ein Vergleichs- und Suchportal für Universitäten"
+
+#: app/templates/index.html:9
+msgid "Made by students for future students."
+msgstr "Von Studis für zukünfige Studis"
+
 #: app/templates/index.html:11
 msgid "I know where I want to go"
 msgstr "Ich weiß, wo ich hinmöchte"
