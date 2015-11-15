@@ -26,19 +26,19 @@ Create some helper functions to show fields
     {% for field_name, field in container.fields.iteritems() %}
     <li class="list-group-item clearfix">
       <div class="col-sm-2"><strong>{{field_name}}</strong></div>
-      <div class="col-sm-9 clearfix">
+      <div class="col-sm-10 clearfix">
+        <div class="pull-right" style="padding-left: 1em">
+          <div class="btn-group">
+          {% if current_user.is_authenticated %}
+            {{ remove_button(field) }}
+          {% endif %}
+          </div>
+        </div>
         {{field.value}}
         {{field_outdated_warning(field)}}
         {% if field.field_type.permit_comment %}
           <p class="text-info">{{field.comment}}</p>
         {% endif %}
-      </div>
-      <div class="col-sm-1">
-        <div class="btn-group pull-right">
-        {% if current_user.is_authenticated %}
-          {{ remove_button(field) }}
-        {% endif %}
-        </div>
       </div>
     </li>
     {% endfor %}
