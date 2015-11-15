@@ -2,51 +2,77 @@
 {% import "buttons.html" as buttons %}
 {% import "fields.html" as fields with context %}
 
+{% block scripts %}
+	{{super()}}
+	<script type="text/javascript">
+  $(document.body).scrollspy({
+  	target: '#sidebar-nav',
+		offset: 70
+	});
+	</script>
+{% endblock %}
+
 {% block page_content %}
-	<h1>{{uni.fields['name'].value}}</h1>
+	<div class="col-md-10">
+		<h1>{{uni.fields['name'].value}}</h1>
 
-	{# General uni information #}
-	<div class="panel panel-default">
-		<div class="panel-heading clearfix">
-			<h2 class="panel-title pull-left">{% trans %}General{% endtrans %}</h2>
-      {% if current_user.is_authenticated %}
-			{# FIXME: check for admin #}
-      <div class="btn-group pull-right" role="group" aria-label="university-actions">
-				{{ buttons.link(url_for('unis.uni_add_subject', uni_id=uni.id), icon='plus', text=_('Add Subject')) }}
-        {{ fields.add_button(uni) }}
-      </div>
-			{% endif %}
+		{# General uni information #}
+		<div class="panel panel-default" id="panel-uni">
+			<div class="panel-heading clearfix">
+				<h2 class="panel-title pull-left">{% trans %}General{% endtrans %}</h2>
+				{% if current_user.is_authenticated %}
+				{# FIXME: check for admin #}
+				<div class="btn-group pull-right" role="group" aria-label="university-actions">
+					{{ buttons.link(url_for('unis.uni_add_subject', uni_id=uni.id), icon='plus', text=_('Add Subject')) }}
+					{{ fields.add_button(uni) }}
+				</div>
+				{% endif %}
+			</div>
+			{{ fields.table(uni) }}
 		</div>
-    {{ fields.table(uni) }}
+
+		{# City info #}
+		<div class="panel panel-default" id="panel-city">
+			<div class="panel-heading clearfix">
+				<h2 class="panel-title pull-left">{{ uni.parent.fields['name'].value }}</h2>
+				{% if current_user.is_authenticated %}
+				{# FIXME: check for admin #}
+				<div class="btn-group pull-right" role="group" aria-label="city-actions">
+					{{ fields.add_button(uni.parent) }}
+				</div>
+				{% endif %}
+			</div>
+			{{ fields.table(uni.parent) }}
+		</div>
+
+		{# List all subjects offered by uni #}
+		{% for subject in uni.children %}
+		<div class="panel panel-default" id="panel-subject-{{subject.id}}">
+			<div class="panel-heading clearfix">
+				<h2 class="panel-title">{{subject.fields['name'].value}}</h2>
+				{% if current_user.is_authenticated %}
+				{# FIXME: check for admin #}
+				<div class="btn-group pull-right" role="group" aria-label="city-actions">
+					{{ fields.add_button(subject) }}
+				</div>
+				{% endif %}
+			</div>
+			{{ fields.table(subject) }}
+		</div>
+		{% endfor %}
 	</div>
 
-	{# City info #}
-	<div class="panel panel-default">
-		<div class="panel-heading clearfix">
-			<h2 class="panel-title pull-left">{{ uni.parent.fields['name'].value }}</h2>
-      {% if current_user.is_authenticated %}
-			{# FIXME: check for admin #}
-      <div class="btn-group pull-right" role="group" aria-label="city-actions">
-        {{ fields.add_button(uni.parent) }}
-      </div>
-      {% endif %}
+	<div class="col-md-2">
+	{% block sidebar_nav %}
+		<div id="sidebar-nav" style="position: fixed">
+			<ul class="nav sidebar-nav nav-pills nav-stacked">
+				<li role="presentation"><a href="#panel-uni">{% trans %}General{% endtrans %}</a></li>
+				<li role="presentation"><a href="#panel-city">{{ uni.parent.fields['name'].value }}</a></li>
+			{% for subject in uni.children %}
+				<li role="presentation"><a href="#panel-subject-{{subject.id}}">{{ subject.fields['name'].value }}</a></li>
+			{% endfor %}
+			</ul>
 		</div>
-    {{ fields.table(uni.parent) }}
+	{% endblock %}
 	</div>
-
-	{# List all subjects offered by uni #}
-	{% for subject in uni.children %}
-	<div class="panel panel-default">
-		<div class="panel-heading clearfix">
-			<h2 class="panel-title">{{subject.fields['name'].value}}</h2>
-      {% if current_user.is_authenticated %}
-			{# FIXME: check for admin #}
-      <div class="btn-group pull-right" role="group" aria-label="city-actions">
-        {{ fields.add_button(subject) }}
-      </div>
-      {% endif %}
-		</div>
-    {{ fields.table(subject) }}
-	</div>
-	{% endfor %}
 {% endblock %}
