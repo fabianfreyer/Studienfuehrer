@@ -8,6 +8,10 @@ Create some helper functions to show fields
   {{ buttons.add(url_for('field_storage.add_field_select_type', container_id=container.id), text=_("Add Field")) }}
 {% endmacro %}
 
+{% macro edit_button(field) %}
+  {{ buttons.edit(url_for('field_storage.edit_field', field_id=field.id)) }}
+{% endmacro %}
+
 {% macro remove_button(field) %}
   {{ buttons.remove(url_for('field_storage.delete_field', field_id=field.id)) }}
 {% endmacro %}
@@ -30,6 +34,7 @@ Create some helper functions to show fields
         <div class="pull-right" style="padding-left: 1em">
           <div class="btn-group">
           {% if current_user.is_authenticated %}
+            {{ edit_button(field) }}
             {{ remove_button(field) }}
           {% endif %}
           </div>

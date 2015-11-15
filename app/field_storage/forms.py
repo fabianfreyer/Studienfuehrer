@@ -17,7 +17,7 @@ class FieldAddSelectTypeForm(Form):
     field_type = SelectField(_('Field Type'), coerce=int)
     submit = SubmitField(_('Next'))
 
-class FieldAddForm(Form):
+class FieldForm(Form):
     @classmethod
     def add_field(cls, name, field):
         """

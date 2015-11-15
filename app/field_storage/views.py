@@ -85,6 +85,19 @@ def container_view(container):
     elif container.container_type == 'subject':
         return redirect(url_for('unis.detail', uni_id=container.parent.id)),
 
+def build_field_form(schema, field=None):
+    from wtforms.validators import Required
+    # Add a value field depending on the type of the field
+    model = models.field_models[schema.data_type]
+    form = forms.FieldForm.add_field('value',
+        model.widget(schema.name,
+            model.validators.append(Required())
+        ))(obj=field)
+    # Remove the comment field if it isn't allowed
+    if not schema.permit_comment:
+        del form.comment
+
+    return form
 
 @field_storage.route('/add/field/<int:container_id>/<int:schema_id>', methods=('GET', 'POST'))
 @login_required
@@ -92,21 +105,9 @@ def add_field_values(container_id, schema_id):
     """
     Add a Field to a container: Show the Form to actually add the form
     """
-    from wtforms.validators import Required
     schema = models.Schema.query.get(schema_id)
-
-    # Add a value field depending on the type of the field
-    model = models.field_models[schema.data_type]
-    form = forms.FieldAddForm.add_field('value',
-        model.widget(schema.name,
-            model.validators.append(Required())
-        ))()
-
-    # Remove the comment field if it isn't allowed
-    if not schema.permit_comment:
-        del form.comment
-
     container = models.Container.query.get(container_id)
+    form = build_field_form(schema)
 
     if form.validate_on_submit():
         field = model(schema, container)
@@ -116,7 +117,22 @@ def add_field_values(container_id, schema_id):
         db.session.add(field)
         return container_view(container)
 
-    return render_template('field_add.html', form=form, schema=schema, container=container)
+    return render_template('field_form.html', action="add", form=form, schema=schema, container=container)
+
+@field_storage.route('/edit/field/<int:field_id>/', methods=('GET', 'POST'))
+@login_required
+def edit_field(field_id):
+    field = models.Field.query.get(field_id)
+    form = build_field_form(field.field_type, field)
+
+    if form.validate_on_submit():
+        field.value = form.value.data
+        if field.field_type.permit_comment:
+            field.comment = form.comment.data
+        db.session.add(field)
+        return container_view(field.container)
+
+    return render_template('field_form.html', action="edit", form=form, schema=field.field_type, container=field.container)
 
 @field_storage.route('/delete/field/<int:field_id>')
 @login_required
