@@ -111,6 +111,8 @@ def add_field_values(container_id, schema_id):
     if form.validate_on_submit():
         field = model(schema, container)
         field.value = form.value.data
+        if schema.permit_comment:
+            field.comment = form.comment.data
         db.session.add(field)
         return container_view(container)
 

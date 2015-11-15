@@ -19,6 +19,9 @@ Create some helper functions to show fields
       <div class="col-sm-2"><strong>{{field_name}}</strong></div>
       <div class="col-sm-9 clearfix">
         {{field.value}}
+        {% if field.field_type.permit_comment %}
+          <p class="text-info">{{field.comment}}</p>
+        {% endif %}
       </div>
       <div class="col-sm-1">
         <div class="btn-group pull-right">
