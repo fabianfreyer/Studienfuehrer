@@ -1,5 +1,5 @@
-{% macro link(href, icon='', text='') %}
-<a href="{{href}}" class="btn btn-default">
+{% macro link(href, icon='', text='', color='default', class_='') %}
+<a href="{{href}}" class="btn btn-{{color}} {{class_}}">
   {% if icon !='' %}
     <span class="glyphicon glyphicon-{{icon}}" aria-hidden="true"></span>
   {% endif %}
@@ -8,7 +8,7 @@
 {% endmacro %}
 
 {% macro remove(href, text='') %}
-  {{ link(href, icon='remove', text=text) }}
+  {{ link(href, icon='remove', text=text, color='danger', class_='confirm') }}
 {% endmacro %}
 
 {% macro add(href, text='') %}

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
-"POT-Creation-Date: 2015-11-15 04:03+0100\n"
+"POT-Creation-Date: 2015-11-15 04:15+0100\n"
 "PO-Revision-Date: 2015-11-14 20:18+0100\n"
 "Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
 "Language: de\n"
@@ -100,41 +100,45 @@ msgstr "Interner Serverfehler"
 msgid "University Guide"
 msgstr "Studienführer"
 
-#: app/templates/base.html:17
+#: app/templates/base.html:9
+msgid "Are you sure?"
+msgstr "Sind Sie sich Sicher?"
+
+#: app/templates/base.html:26
 msgid "Toggle navigation"
 msgstr "Navigation ein/ausblenden"
 
-#: app/templates/base.html:22
+#: app/templates/base.html:31
 msgid "UG"
 msgstr "STphi"
 
-#: app/templates/base.html:26
+#: app/templates/base.html:35
 msgid "Cities"
 msgstr "Städte"
 
-#: app/templates/base.html:33
+#: app/templates/base.html:42
 msgid "Admin"
 msgstr "Administration"
 
-#: app/templates/base.html:35
+#: app/templates/base.html:44
 #: app/templates/city_add.html:5
 msgid "Add City"
 msgstr "Stadt hinzufügen"
 
-#: app/templates/base.html:36
+#: app/templates/base.html:45
 #: app/templates/uni_add.html:5
 msgid "Add Uni"
 msgstr "Uni hinzufügen"
 
-#: app/templates/base.html:37
+#: app/templates/base.html:46
 msgid "Schema"
 msgstr "Schema"
 
-#: app/templates/base.html:40
+#: app/templates/base.html:49
 msgid "Log Out"
 msgstr "Ausloggen"
 
-#: app/templates/base.html:42
+#: app/templates/base.html:51
 msgid "Log In"
 msgstr "Anmelden"
 

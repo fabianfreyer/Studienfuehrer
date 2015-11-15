@@ -2,6 +2,15 @@
 
 {% block title %}{% trans %}University Guide{% endtrans %}{% endblock %}
 
+{% block scripts %}
+  {{super()}}
+	<script type="text/javascript">
+    $('.confirm').on('click', function () {
+			return confirm('{% trans %}Are you sure?{% endtrans %}');
+		});
+	</script>
+{% endblock %}
+
 {% block styles %}
 	{{super()}}
 	<style>
@@ -58,8 +67,4 @@
 
     {% block page_content %}{% endblock %}
 </div>
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
 {% endblock %}
