@@ -20,7 +20,7 @@ class Schema(db.Model):
             lazy='joined',
             join_depth=2,
             back_populates='schemata')
-    weight = db.Column(db.Integer)
+    weight = db.Column(db.Integer, default=0)
     data_type = db.Column(db.Enum("textfield", "integerfield", "boolean"))
 
     def __repr__(self):
