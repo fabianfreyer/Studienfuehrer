@@ -9,8 +9,8 @@
     <td>{{ schema.data_type }}</td>
     <td>
       <div class="btn-group pull-right" role="group" aria-hidden="true">
-        {{buttons.edit(url_for('field_storage.schema_edit', schema_id=schema.id))}}
-        {{buttons.remove(url_for('field_storage.schema_delete', schema_id=schema.id))}}
+        {{buttons.edit(url_for('field_storage.schema_edit', schema_id=schema.id), disabled=(not schema.can_edit))}}
+        {{buttons.remove(url_for('field_storage.schema_delete', schema_id=schema.id), disabled=(not schema.can_delete))}}
       </div>
     </td>
   </tr>
@@ -42,7 +42,7 @@
         <div class="btn-group pull-right">
           {{ buttons.add(url_for('field_storage.schema_add', category_id=category.id), text=_("Add Field Type")) }}
           {{ buttons.edit(url_for('field_storage.category_edit', category_id=category.id)) }}
-          {{ buttons.remove(url_for('field_storage.category_delete', category_id=category.id)) }}
+          {{ buttons.remove(url_for('field_storage.category_delete', category_id=category.id), disabled=(not category.can_delete)) }}
         </div>
       </td>
     </tr>

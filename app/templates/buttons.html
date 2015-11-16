@@ -1,5 +1,5 @@
-{% macro link(href, icon='', text='', color='default', class_='') %}
-<a href="{{href}}" class="btn btn-{{color}} {{class_}}">
+{% macro link(href, icon='', text='', color='default', class_='', disabled=False) %}
+<a href="{{href}}" class="btn btn-{{color}} {{class_}}{% if disabled %} disabled{% endif %}">
   {% if icon !='' %}
     <span class="glyphicon glyphicon-{{icon}}" aria-hidden="true"></span>
   {% endif %}
@@ -7,14 +7,14 @@
 </a>
 {% endmacro %}
 
-{% macro remove(href, text='') %}
-  {{ link(href, icon='remove', text=text, color='danger', class_='confirm') }}
+{% macro remove(href, text='', disabled=False) %}
+  {{ link(href, icon='remove', text=text, color='danger', class_='confirm', disabled=disabled) }}
 {% endmacro %}
 
-{% macro add(href, text='') %}
-  {{ link(href, icon='plus', text=text) }}
+{% macro add(href, text='', disabled=False) %}
+  {{ link(href, icon='plus', text=text, disabled=disabled) }}
 {% endmacro %}
 
-{% macro edit(href, text='') %}
-  {{ link(href, icon='edit', text=text) }}
+{% macro edit(href, text='', disabled=False) %}
+  {{ link(href, icon='edit', text=text, disabled=disabled) }}
 {% endmacro %}

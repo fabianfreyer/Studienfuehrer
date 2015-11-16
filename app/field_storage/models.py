@@ -15,6 +15,7 @@ class Schema(db.Model):
     name = db.Column(db.String(), unique=True)
     description = db.Column(db.Text())
     permit_comment = db.Column(db.Boolean())
+    protection = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category',
             lazy='joined',
@@ -22,6 +23,23 @@ class Schema(db.Model):
             back_populates='schemata')
     weight = db.Column(db.Integer, default=0)
     data_type = db.Column(db.Enum("textfield", "integerfield", "boolean"))
+
+    @property
+    def can_edit(self):
+        """
+        Check if schema can be edited
+        """
+        # Never delete the "name" field
+        return not (self.protection or (self.name == "name"))
+
+    @property
+    def can_delete(self):
+        """
+        Check if schema can be deleted
+        """
+        # Check if there are fields in the database for this schema and that the schema
+        # is allowed to be edited
+        return self.can_edit and (Field.query.filter_by(field_type=self).count() == 0)
 
     def __repr__(self):
         return "<Field: (%s) %s>" % (self.data_type, self.name)
@@ -63,6 +81,14 @@ class Field(db.Model):
             'polymorphic_on': data_type,
             'with_polymorphic': '*'
             }
+
+    @property
+    def can_delete(self):
+        """
+        Check if field can be deleted
+        """
+	# Never remove the name attribute from a container
+        return self.field_type.name != "name"
 
     def __init__(self, schema, container):
         self.field_type = schema
@@ -219,6 +245,15 @@ class Category(db.Model):
             cascade='all, delete-orphan',
             collection_class=attribute_mapped_collection('name'),
             back_populates='category')
+
+    @property
+    def can_delete(self):
+        """
+        Check if a category can be deleted
+        """
+        # Check if there are still field types in the database
+        return False if self.schemata else True
+
 
     def __repr__(self):
         return "<Category: %s>" % self.name

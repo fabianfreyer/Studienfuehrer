@@ -13,7 +13,7 @@ Create some helper functions to show fields
 {% endmacro %}
 
 {% macro remove_button(field) %}
-  {{ buttons.remove(url_for('field_storage.delete_field', field_id=field.id)) }}
+  {{ buttons.remove(url_for('field_storage.delete_field', field_id=field.id), disabled=(not field.can_delete)) }}
 {% endmacro %}
 
 {% macro field_outdated_warning(field, class_="pull-right") %}

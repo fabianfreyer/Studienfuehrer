@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
-"POT-Creation-Date: 2015-11-16 05:05+0100\n"
+"POT-Creation-Date: 2015-11-16 16:11+0100\n"
 "PO-Revision-Date: 2015-11-14 20:18+0100\n"
 "Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
 "Language: de\n"
@@ -71,7 +71,12 @@ msgstr "Weiter"
 msgid "Comment"
 msgstr "Kommentar"
 
-#: app/field_storage/views.py:53
+#: app/field_storage/views.py:54
+#, python-format
+msgid "Deleted Category: %s"
+msgstr "Kategorie %s gelöscht"
+
+#: app/field_storage/views.py:56
 msgid ""
 "Cannot delete category: there are still schemata for this field in the "
 "database"
@@ -79,20 +84,21 @@ msgstr ""
 "Rubrik konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld "
 "in der Datenbank"
 
-#: app/field_storage/views.py:56
-#, python-format
-msgid "Deleted Category: %s"
-msgstr "Kategorie %s gelöscht"
-
-#: app/field_storage/views.py:115
-msgid "Cannot delete field: there are still values for this field in the database"
+#: app/field_storage/views.py:118
+msgid ""
+"Cannot delete field: field is protected or there are still values for "
+"this field in the database"
 msgstr ""
-"Feld konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld in "
-"der Datenbank"
+"Feld konnte nicht gelöscht werden: Feld ist geschützt oder es sind noch "
+"Werte für dieses Feld in der Datenbank"
 
 #: app/field_storage/views.py:207
 msgid "Cannot delete field: No such field"
 msgstr "Feld konnte nicht gelöscht werden: Feld nicht gefunden"
+
+#: app/field_storage/views.py:209
+msgid "Cannot delete field: Field is protected"
+msgstr "Feld konnte nicht gelöscht werden: Feld ist geschützt"
 
 #: app/templates/403.html:3
 #: app/templates/403.html:7

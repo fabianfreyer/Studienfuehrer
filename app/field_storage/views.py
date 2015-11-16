@@ -49,11 +49,11 @@ def category_delete(category_id):
     category = models.Category.query.get(category_id)
     # Check if there are still fields with this category left
     schema = db.aliased(models.Schema)
-    if category.schemata:
-        flash(_('Cannot delete category: there are still schemata for this field in the database'))
-    else:
+    if category.can_delete:
         db.session.delete(category)
         flash(_('Deleted Category: %s' % category.name))
+    else:
+        flash(_('Cannot delete category: there are still schemata for this field in the database'))
     return redirect(url_for('field_storage.schema_admin'))
 
 @field_storage.route('/add/schema', methods=('GET', 'POST'))
@@ -111,11 +111,11 @@ def schema_delete(schema_id):
     """
     schema = models.Schema.query.get(schema_id)
     # Check if there are still fields with this schema left
-    if models.Field.query.filter_by(field_type=schema).count() != 0:
-        flash(_('Cannot delete field: there are still values for this field in the database'))
-    else:
+    if schema.can_delete:
         db.session.delete(schema)
         flash('Deleted field: %s' % schema.name)
+    else:
+        flash(_('Cannot delete field: field is protected or there are still values for this field in the database'))
     return redirect(url_for('field_storage.schema_admin'))
 
 @field_storage.route('/add/field/<int:container_id>/', methods=('GET', 'POST'))
@@ -205,6 +205,8 @@ def delete_field(field_id):
     # delete the field
     if not field:
         flash(_("Cannot delete field: No such field"))
+    elif not field.can_delete:
+        flash(_("Cannot delete field: Field is protected"))
     else:
         db.session.delete(field)
 
