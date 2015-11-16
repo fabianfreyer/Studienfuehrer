@@ -43,7 +43,7 @@ Create some helper functions to show fields
             {% endif %}
             </div>
           </div>
-          {{field.value}}
+          {{field.formatter|safe}}
           {{field_outdated_warning(field)}}
           {% if field.field_type.permit_comment %}
             <p class="text-info">{{field.comment}}</p>

@@ -3,7 +3,7 @@ from sqlalchemy.orm.collections import attribute_mapped_collection
 import wtforms
 from wtforms.validators import Required
 import datetime
-from flask import current_app
+from flask import current_app, render_template
 from collections import defaultdict
 
 class Schema(db.Model):
@@ -87,8 +87,12 @@ class Field(db.Model):
         """
         Check if field can be deleted
         """
-	# Never remove the name attribute from a container
+        # Never remove the name attribute from a container
         return self.field_type.name != "name"
+
+    @property
+    def formatter(self):
+        return render_template("fields/%s.html" % self.__class__.__name__, field=self)
 
     def __init__(self, schema, container):
         self.field_type = schema
