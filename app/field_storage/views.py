@@ -128,9 +128,12 @@ def add_field_select_type(container_id):
     form = forms.FieldAddSelectTypeForm()
     container = models.Container.query.get(container_id)
     form.field_type.choices = [
-            (schema.id, schema.name)
-            for schema in models.Schema.query.all()
-            if schema.name not in container.fields]
+            (category.name,  [
+                (schema.id, schema.name)
+                for schema in sorted(category.schemata.values(), key=lambda s: s.weight)
+                if schema.name not in container.fields
+                ])
+            for category in models.Category.query.all()]
     if form.validate_on_submit():
         # Show the add field form, but keep the redirection information
         return redirect(url_for('field_storage.add_field_values', container_id=container_id, schema_id=form.field_type.data, next=form.next.data))

@@ -1,5 +1,6 @@
 from ..utils.redirect_back import RedirectForm
-from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, BooleanField, SubmitField
+from wtforms_components import SelectField
 from wtforms.validators import Required
 from flask.ext.babel import lazy_gettext as _
 

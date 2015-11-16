@@ -6,3 +6,4 @@ Flask-SQLAlchemy	>=1.0
 Flask-Script		>=0.6.6
 Flask-WTF		>=0.9.4
 Flask-Babel             >=0.9
+wtforms-components      >=0.9.8
