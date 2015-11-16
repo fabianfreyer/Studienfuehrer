@@ -22,7 +22,7 @@ class Schema(db.Model):
             join_depth=2,
             back_populates='schemata')
     weight = db.Column(db.Integer, default=0)
-    data_type = db.Column(db.Enum("textfield", "integerfield", "boolean"))
+    data_type = db.Column(db.Text)
 
     @property
     def can_edit(self):
@@ -170,12 +170,6 @@ class BooleanField(Field):
 
     def __repr__(self):
         return "BooleanField(%s: %d)" % (self.name, self.value)
-
-field_models = {
-    'textfield':  TextField,
-    'boolean': BooleanField,
-    'integerfield': IntegerField,
-}
 
 
 class Container(db.Model):

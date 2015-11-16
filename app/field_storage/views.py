@@ -3,6 +3,7 @@ from . import models
 from . import forms
 from .. import db
 from ..utils.redirect_back import redirect_back
+from ..utils.sqlalchemy_polymorphism import polymorphic_subclass
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_required
 from flask.ext.babel import lazy_gettext as _
@@ -142,7 +143,7 @@ def add_field_select_type(container_id):
 def build_field_form(schema, field=None):
     from wtforms.validators import Required
     # Add a value field depending on the type of the field
-    model = models.field_models[schema.data_type]
+    model = polymorphic_subclass(Field, schema.data_type)
     form = forms.FieldForm.add_field('value',
         model.widget(schema.name,
             model.validators.append(Required())
@@ -164,7 +165,7 @@ def add_field_values(container_id, schema_id):
     form = build_field_form(schema)
 
     if form.validate_on_submit():
-        model = models.field_models[schema.data_type]
+        model = polymorphic_subclass(Field, schema.data_type)
         field = model(schema, container)
         field.value = form.value.data
         if schema.permit_comment:
