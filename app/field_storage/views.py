@@ -2,6 +2,7 @@ from . import field_storage
 from . import models
 from . import forms
 from .. import db
+from ..utils.redirect_back import redirect_back
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_required
 from flask.ext.babel import lazy_gettext as _
@@ -23,7 +24,7 @@ def category_add():
         category = models.Category()
         category.name = form.name.data
         db.session.add(category)
-        return redirect(url_for('field_storage.schema_admin'))
+        return form.redirect('field_storage.schema_admin')
     return render_template('basic_form.html', form=form, action="add")
 
 @field_storage.route('/edit/category/<int:category_id>', methods=('GET', 'POST'))
@@ -54,7 +55,7 @@ def category_delete(category_id):
         flash(_('Deleted Category: %s' % category.name))
     else:
         flash(_('Cannot delete category: there are still schemata for this field in the database'))
-    return redirect(url_for('field_storage.schema_admin'))
+    return redirect_back('field_storage.schema_admin')
 
 @field_storage.route('/add/schema', methods=('GET', 'POST'))
 @field_storage.route('/add/schema/<int:category_id>', methods=('GET', 'POST'))
@@ -77,7 +78,7 @@ def schema_add(category_id=None):
         schema.data_type = form.data_type.data
         schema.category = models.Category.query.get(category_id if category_id else form.category.data)
         db.session.add(schema)
-        return redirect(url_for('field_storage.schema_admin'))
+        return form.redirect('field_storage.schema_admin')
     return render_template('admin/schema_form.html', form=form)
 
 @field_storage.route('/edit/schema/<int:schema_id>', methods=('GET', 'POST'))
@@ -100,7 +101,7 @@ def schema_edit(schema_id):
         schema.data_type = form.data_type.data
         schema.category = models.Category.query.get(form.category.data)
         db.session.add(schema)
-        return redirect(url_for('field_storage.schema_admin'))
+        return form.redirect('field_storage.schema_admin')
     return render_template('admin/schema_form.html', form=form)
 
 @field_storage.route('/delete/schema/<int:schema_id>')
@@ -116,7 +117,7 @@ def schema_delete(schema_id):
         flash('Deleted field: %s' % schema.name)
     else:
         flash(_('Cannot delete field: field is protected or there are still values for this field in the database'))
-    return redirect(url_for('field_storage.schema_admin'))
+    return redirect_back('field_storage.schema_admin')
 
 @field_storage.route('/add/field/<int:container_id>/', methods=('GET', 'POST'))
 @login_required
@@ -131,19 +132,9 @@ def add_field_select_type(container_id):
             for schema in models.Schema.query.all()
             if schema.name not in container.fields]
     if form.validate_on_submit():
-        return redirect(url_for('field_storage.add_field_values', container_id=container_id, schema_id=form.field_type.data))
+        # Show the add field form, but keep the redirection information
+        return redirect(url_for('field_storage.add_field_values', container_id=container_id, schema_id=form.field_type.data, next=form.next.data))
     return render_template('field_type_select.html', form=form, container=container)
-
-def container_view(container):
-    """
-    Helper function to redirect to the adequate view for a container
-    """
-    if container.container_type == 'uni':
-        return redirect(url_for('unis.detail', uni_id=container.id))
-    elif container.container_type == 'city':
-        return redirect(url_for('unis.by_city')),
-    elif container.container_type == 'subject':
-        return redirect(url_for('unis.detail', uni_id=container.parent.id)),
 
 def build_field_form(schema, field=None):
     from wtforms.validators import Required
@@ -176,7 +167,7 @@ def add_field_values(container_id, schema_id):
         if schema.permit_comment:
             field.comment = form.comment.data
         db.session.add(field)
-        return container_view(container)
+        return form.redirect()
 
     return render_template('field_form.html', action="add", form=form, schema=schema, container=container)
 
@@ -191,7 +182,7 @@ def edit_field(field_id):
         if field.field_type.permit_comment:
             field.comment = form.comment.data
         db.session.add(field)
-        return container_view(field.container)
+        return form.redirect()
 
     return render_template('field_form.html', action="edit", form=form, schema=field.field_type, container=field.container)
 
@@ -211,4 +202,4 @@ def delete_field(field_id):
         db.session.delete(field)
 
     # redirect to field owner
-    return container_view(field.container)
+    return redirect_back('main.index')

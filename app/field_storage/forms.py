@@ -1,9 +1,9 @@
-from flask.ext.wtf import Form
+from ..utils.redirect_back import RedirectForm
 from wtforms import StringField, TextAreaField, BooleanField, SelectField, SubmitField
 from wtforms.validators import Required
 from flask.ext.babel import lazy_gettext as _
 
-class SchemaForm(Form):
+class SchemaForm(RedirectForm):
    name = StringField('Name', validators=[Required()])
    category = SelectField(_('Category'), coerce=int)
    description = TextAreaField('Description', validators=[Required()])
@@ -14,15 +14,15 @@ class SchemaForm(Form):
    permit_comment = BooleanField(_('Permit Comment'))
    submit = SubmitField()
 
-class FieldAddSelectTypeForm(Form):
+class FieldAddSelectTypeForm(RedirectForm):
     field_type = SelectField(_('Field Type'), coerce=int)
     submit = SubmitField(_('Next'))
 
-class CategoryForm(Form):
+class CategoryForm(RedirectForm):
    name = StringField('Name', validators=[Required()])
    submit = SubmitField()
 
-class FieldForm(Form):
+class FieldForm(RedirectForm):
     @classmethod
     def add_field(cls, name, field):
         """
