@@ -35,3 +35,7 @@ Implement some query factory to filter by fields. Some useful links may be:
 
 ## Fix Bugs
 * Check for item existance everywhere where an ID is given via GET parameter
+
+## Unit Testing
+* Create unit testing framework
+* Write unit tests
