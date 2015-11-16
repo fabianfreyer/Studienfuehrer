@@ -1,39 +1,55 @@
 {% extends "base.html" %}
 {% import "buttons.html" as buttons %}
 
+{% macro schema_row(schema) %}
+  <tr>
+    <td>{{ schema.name }}</td>
+    <td>{{ schema.description }}</td>
+    <td>{{ schema.permit_comment }}</td>
+    <td>{{ schema.data_type }}</td>
+    <td>
+      <div class="btn-group pull-right" role="group" aria-hidden="true">
+        {{buttons.edit(url_for('field_storage.schema_edit', schema_id=schema.id))}}
+        {{buttons.remove(url_for('field_storage.schema_delete', schema_id=schema.id))}}
+      </div>
+    </td>
+  </tr>
+{% endmacro %}
+
 {% block page_content %}
 <div class="page_header">
-	<h1>{% trans %}Administrate Field Types{% endtrans %}</h1>
+  <h1>{% trans %}Administrate Field Types{% endtrans %}</h1>
 </div>
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
-		<span class="pull-left">{% trans %}Available Fields{% endtrans %}</span>
+    <span class="pull-left">{% trans %}Available Fields{% endtrans %}</span>
     <div class="btn-group pull-right">
-      {{ buttons.add(url_for('field_storage.schema_add'), text=_("Add Field Type")) }}
+      {{ buttons.add(url_for('field_storage.category_add'), text=_("Add Category")) }}
     </div>
   </div>
-	<table class="table table-striped">
-		<tr>
-			<th>{% trans %}Name{% endtrans %}</th>
-			<th>{% trans %}Description{% endtrans %}</th>
-			<th>{% trans %}Permit Comment{% endtrans %}</th>
-			<th>{% trans %}Datatype{% endtrans %}</th>
+  <table class="table table-striped">
+    <tr>
+      <th>{% trans %}Name{% endtrans %}</th>
+      <th>{% trans %}Description{% endtrans %}</th>
+      <th>{% trans %}Permit Comment{% endtrans %}</th>
+      <th>{% trans %}Datatype{% endtrans %}</th>
       <th></th>
-		</tr>
-	{% for schema in schemata %}
-		<tr>
-			<td>{{ schema.name }}</td>
-      <td>{{ schema.description }}</td>
-			<td>{{ schema.permit_comment }}</td>
-			<td>{{ schema.data_type }}</td>
+    </tr>
+  {% for category in categories %}
+    <tr>
+      <th colspan="4">{{ category.name }}</th>
       <td>
-        <div class="btn-group pull-right" role="group" aria-hidden="true">
-          {{buttons.edit(url_for('field_storage.schema_edit', schema_id=schema.id))}}
-          {{buttons.remove(url_for('field_storage.schema_delete', schema_id=schema.id))}}
+        <div class="btn-group pull-right">
+          {{ buttons.add(url_for('field_storage.schema_add', category_id=category.id), text=_("Add Field Type")) }}
+          {{ buttons.edit(url_for('field_storage.category_edit', category_id=category.id)) }}
+          {{ buttons.remove(url_for('field_storage.category_delete', category_id=category.id)) }}
         </div>
       </td>
-		</tr>
-	{% endfor %}
+    </tr>
+    {% for schema in category.schemata.values() %}
+      {{ schema_row(schema) }}
+    {% endfor %}
+  {% endfor %}
   <table>
 </div>
 {% endblock %}

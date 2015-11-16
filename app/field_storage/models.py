@@ -4,6 +4,7 @@ import wtforms
 from wtforms.validators import Required
 import datetime
 from flask import current_app
+from collections import defaultdict
 
 class Schema(db.Model):
     """
@@ -14,6 +15,11 @@ class Schema(db.Model):
     name = db.Column(db.String(), unique=True)
     description = db.Column(db.Text())
     permit_comment = db.Column(db.Boolean())
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
+    category = db.relationship('Category',
+            lazy='joined',
+            join_depth=2,
+            back_populates='schemata')
     weight = db.Column(db.Integer)
     data_type = db.Column(db.Enum("textfield", "integerfield", "boolean"))
 
@@ -86,6 +92,10 @@ class Field(db.Model):
             raise AttributeError("Cannot set comment")
 
     @property
+    def category(self):
+        return self.field_type.category
+
+    @property
     def age(self):
         return datetime.datetime.now()-self.timestamp
 
@@ -142,14 +152,73 @@ class Container(db.Model):
     """
     Metaclass for a fieldable entity.
     """
+    class _CategoryPair(object):
+        def __init__(self):
+            self._category = None
+            self._fields = {}
+
+        def __repr__(self):
+            return "<CategoryInstance(%s): %r>" % (self.category.name, self._fields)
+
+        def __getitem__(self, key):
+            id_ = self._fields[key]
+            return Field.query.get(id_)
+
+        def __iter__(self):
+            return (self[key] for key in self._fields)
+
+        @property
+        def category(self):
+            return Category.query.get(self._category)
+
+        @category.setter
+        def category(self, value):
+            self._category = value.id
+
+        def __call__(self):
+            return self.category
+
+        def append(self, field):
+            self.category = field.category
+            self._fields[field.name] = field.id
+
+        def remove(self, field):
+            del self._fields[field.field_type.name]
+
     __tablename__ = 'container'
     id = db.Column(db.Integer, primary_key=True)
     parent_id = db.Column(db.Integer, db.ForeignKey('container.id'))
     parent = db.relationship('Container', backref='children', remote_side=[id])
     fields = db.relationship('Field',
+            cascade='all, delete-orphan',
             collection_class=attribute_mapped_collection('name'),
             back_populates='container')
     container_type = db.Column(db.Enum("uni", "subject", "city"))
     __mapper_args__ = {
             'polymorphic_on': container_type
             }
+
+    @property
+    def categories(self):
+        res = defaultdict(self._CategoryPair)
+        for field in self.fields.values():
+            res[field.category.name].append(field)
+        return res
+
+
+class Category(db.Model):
+    """
+    Metaclass for categories to group fields by.
+    """
+    __tablename__ = 'category'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(), unique=True)
+
+    schemata = db.relationship('Schema',
+            lazy='subquery',
+            cascade='all, delete-orphan',
+            collection_class=attribute_mapped_collection('name'),
+            back_populates='category')
+
+    def __repr__(self):
+        return "<Category: %s>" % self.name

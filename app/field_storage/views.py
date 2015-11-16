@@ -9,24 +9,78 @@ from flask.ext.babel import lazy_gettext as _
 @field_storage.route('/admin/schema/')
 @login_required
 def schema_admin():
-    schemata = models.Schema.query.all()
-    return render_template("admin/schema.html", schemata=schemata)
+    categories = models.Category.query.all()
+    return render_template("admin/schema.html", categories=categories)
+
+@field_storage.route('/add/category', methods=('GET', 'POST'))
+@login_required
+def category_add():
+    """
+    Add a category
+    """
+    form = forms.CategoryForm()
+    if form.validate_on_submit():
+        category = models.Category()
+        category.name = form.name.data
+        db.session.add(category)
+        return redirect(url_for('field_storage.schema_admin'))
+    return render_template('basic_form.html', form=form, action="add")
+
+@field_storage.route('/edit/category/<int:category_id>', methods=('GET', 'POST'))
+@login_required
+def category_edit(category_id):
+    """
+    Edit a category
+    """
+    category = models.Category.query.get(category_id)
+    form = forms.CategoryForm(obj=category)
+    if form.validate_on_submit():
+        category.name = form.name.data
+        db.session.add(category)
+        return redirect(url_for('field_storage.schema_admin'))
+    return render_template('basic_form.html', form=form, action="edit")
+
+@field_storage.route('/delete/category/<int:category_id>')
+@login_required
+def category_delete(category_id):
+    """
+    Delete a category
+    """
+    category = models.Category.query.get(category_id)
+    # Check if there are still fields with this category left
+    schema = db.aliased(models.Schema)
+    if category.schemata:
+        flash(_('Cannot delete category: there are still schemata for this field in the database'))
+    else:
+        db.session.delete(category)
+        flash(_('Deleted Category: %s' % category.name))
+    return redirect(url_for('field_storage.schema_admin'))
 
 @field_storage.route('/add/schema', methods=('GET', 'POST'))
+@field_storage.route('/add/schema/<int:category_id>', methods=('GET', 'POST'))
 @login_required
-def schema_add():
+def schema_add(category_id=None):
     form = forms.SchemaForm()
+
+    if category_id is None:
+        form.category.choices = [
+                (category.id, category.name)
+                for category in models.Category.query.all()]
+    else:
+        del form.category
+
     if form.validate_on_submit():
         schema = models.Schema()
         schema.name = form.name.data
         schema.description = form.description.data
         schema.permit_comment = form.permit_comment.data
         schema.data_type = form.data_type.data
+        schema.category = models.Category.query.get(category_id if category_id else form.category.data)
         db.session.add(schema)
         return redirect(url_for('field_storage.schema_admin'))
     return render_template('admin/schema_form.html', form=form)
 
-@field_storage.route('/edit/schema/<int:schema_id>')
+@field_storage.route('/edit/schema/<int:schema_id>', methods=('GET', 'POST'))
 @login_required
 def schema_edit(schema_id):
     """
@@ -34,11 +88,17 @@ def schema_edit(schema_id):
     """
     schema = models.Schema.query.get(schema_id)
     form = forms.SchemaForm(obj=schema)
+
+    form.category.choices = [
+            (category.id, category.name)
+            for category in models.Category.query.all()]
+
     if form.validate_on_submit():
         schema.name = form.name.data
         schema.description = form.description.data
         schema.permit_comment = form.permit_comment.data
         schema.data_type = form.data_type.data
+        schema.category = models.Category.query.get(form.category.data)
         db.session.add(schema)
         return redirect(url_for('field_storage.schema_admin'))
     return render_template('admin/schema_form.html', form=form)

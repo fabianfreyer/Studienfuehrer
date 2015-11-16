@@ -5,6 +5,7 @@ from flask.ext.babel import lazy_gettext as _
 
 class SchemaForm(Form):
    name = StringField('Name', validators=[Required()])
+   category = SelectField(_('Category'), coerce=int)
    description = TextAreaField('Description', validators=[Required()])
    data_type = SelectField('Type',
            choices=[('textfield', _('Text')),
@@ -16,6 +17,10 @@ class SchemaForm(Form):
 class FieldAddSelectTypeForm(Form):
     field_type = SelectField(_('Field Type'), coerce=int)
     submit = SubmitField(_('Next'))
+
+class CategoryForm(Form):
+   name = StringField('Name', validators=[Required()])
+   submit = SubmitField()
 
 class FieldForm(Form):
     @classmethod

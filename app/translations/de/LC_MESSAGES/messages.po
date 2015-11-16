@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: fabian.freyer@physik.tu-berlin.de\n"
-"POT-Creation-Date: 2015-11-15 04:15+0100\n"
+"POT-Creation-Date: 2015-11-16 05:05+0100\n"
 "PO-Revision-Date: 2015-11-14 20:18+0100\n"
 "Last-Translator: Fabian Freyer <fabian.freyer@physik.tu-berlin.de>\n"
 "Language: de\n"
@@ -38,42 +38,59 @@ msgstr "Falscher Benutzername oder Passwort"
 msgid "Successfully logged out."
 msgstr "Erfolgreich abgemeldet"
 
-#: app/field_storage/forms.py:10
+#: app/field_storage/forms.py:8
+msgid "Category"
+msgstr "Rubrik"
+
+#: app/field_storage/forms.py:11
 msgid "Text"
 msgstr "Text"
 
-#: app/field_storage/forms.py:11
+#: app/field_storage/forms.py:12
 msgid "Numeric"
 msgstr "Numerisch"
 
-#: app/field_storage/forms.py:12
+#: app/field_storage/forms.py:13
 msgid "Boolean"
 msgstr "Wahrheitswert"
 
-#: app/field_storage/forms.py:13
-#: app/templates/admin/schema.html:19
+#: app/field_storage/forms.py:14
+#: app/templates/admin/schema.html:34
 msgid "Permit Comment"
 msgstr "Kommentar erlaubt"
 
-#: app/field_storage/forms.py:17
+#: app/field_storage/forms.py:18
 msgid "Field Type"
 msgstr "Feld-Typ"
 
-#: app/field_storage/forms.py:18
+#: app/field_storage/forms.py:19
 msgid "Next"
 msgstr "Weiter"
 
-#: app/field_storage/forms.py:29
+#: app/field_storage/forms.py:34
 msgid "Comment"
 msgstr "Kommentar"
 
-#: app/field_storage/views.py:55
+#: app/field_storage/views.py:53
+msgid ""
+"Cannot delete category: there are still schemata for this field in the "
+"database"
+msgstr ""
+"Rubrik konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld "
+"in der Datenbank"
+
+#: app/field_storage/views.py:56
+#, python-format
+msgid "Deleted Category: %s"
+msgstr "Kategorie %s gelöscht"
+
+#: app/field_storage/views.py:115
 msgid "Cannot delete field: there are still values for this field in the database"
 msgstr ""
 "Feld konnte nicht gelöscht werden: Es sind noch Werte für dieses Feld in "
 "der Datenbank"
 
-#: app/field_storage/views.py:146
+#: app/field_storage/views.py:207
 msgid "Cannot delete field: No such field"
 msgstr "Feld konnte nicht gelöscht werden: Feld nicht gefunden"
 
@@ -158,7 +175,7 @@ msgid "Edit field \"%(name)s\""
 msgstr "Feld \"%(name)s\" bearbeiten"
 
 #: app/templates/field_form.html:19
-#: app/templates/admin/schema.html:18
+#: app/templates/admin/schema.html:33
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -209,28 +226,32 @@ msgstr "Allgemein"
 msgid "Add Subject"
 msgstr "Fach hinzufügen"
 
-#: app/templates/admin/schema.html:6
+#: app/templates/admin/schema.html:21
 msgid "Administrate Field Types"
 msgstr "Feld-Typen adminstrieren"
 
-#: app/templates/admin/schema.html:10
+#: app/templates/admin/schema.html:25
 msgid "Available Fields"
 msgstr "Verfügbare Felder"
 
-#: app/templates/admin/schema.html:12
-msgid "Add Field Type"
-msgstr "Feld-Typ hinzufügen"
+#: app/templates/admin/schema.html:27
+msgid "Add Category"
+msgstr "Rubrik hinzufügen"
 
-#: app/templates/admin/schema.html:17
+#: app/templates/admin/schema.html:32
 #: app/unis/forms.py:7
 #: app/unis/forms.py:12
 #: app/unis/forms.py:17
 msgid "Name"
 msgstr "Name"
 
-#: app/templates/admin/schema.html:20
+#: app/templates/admin/schema.html:35
 msgid "Datatype"
 msgstr "Datentyp"
+
+#: app/templates/admin/schema.html:43
+msgid "Add Field Type"
+msgstr "Feld-Typ hinzufügen"
 
 #: app/templates/admin/schema_form.html:5
 msgid "Add field type"

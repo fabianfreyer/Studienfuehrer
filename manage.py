@@ -4,7 +4,7 @@ import config
 from app import create_app, db
 from app.auth.models import User, Role, Permission
 from app.unis.models import Uni, City, Subject
-from app.field_storage.models import Schema, Field
+from app.field_storage.models import Schema, Field, Category
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 
@@ -26,7 +26,8 @@ def make_shell_context():
         'Field': Field,
         'Uni': Uni,
         'City': City,
-        'Subject': Subject
+        'Subject': Subject,
+        'Category': Category,
     }
 
 manager.add_command('db', MigrateCommand)
