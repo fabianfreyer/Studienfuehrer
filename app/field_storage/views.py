@@ -7,6 +7,7 @@ from ..utils.sqlalchemy_polymorphism import polymorphic_subclass
 from flask import render_template, redirect, request, url_for, flash
 from flask.ext.login import login_required
 from flask.ext.babel import lazy_gettext as _
+import datetime
 
 @field_storage.route('/admin/schema/')
 @login_required
@@ -189,6 +190,14 @@ def edit_field(field_id):
         return form.redirect()
 
     return render_template('field_form.html', action="edit", form=form, schema=field.field_type, container=field.container)
+
+@field_storage.route('/touch/field/<int:field_id>/', methods=('GET', 'POST'))
+@login_required
+def touch_field(field_id):
+    field = models.Field.query.get(field_id)
+    field.timestamp = datetime.datetime.now()
+    db.session.add(field)
+    return redirect_back('main.index')
 
 @field_storage.route('/delete/field/<int:field_id>')
 @login_required

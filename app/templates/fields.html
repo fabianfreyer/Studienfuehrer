@@ -16,6 +16,10 @@ Create some helper functions to show fields
   {{ buttons.remove(url_for('field_storage.delete_field', field_id=field.id), disabled=(not field.can_delete)) }}
 {% endmacro %}
 
+{% macro touch_button(field) %}
+  {{ buttons.ok(url_for('field_storage.touch_field', field_id=field.id)) }}
+{% endmacro %}
+
 {% macro field_outdated_warning(field, class_="pull-right") %}
   {% if field.outdated %}
     <span class="{{class_}}" data-toggle="tooltip"
@@ -41,6 +45,7 @@ Create some helper functions to show fields
           <div class="pull-right" style="padding-left: 1em">
             <div class="btn-group">
             {% if current_user.is_authenticated %}
+							{{ touch_button(field) }}
               {{ edit_button(field) }}
               {{ remove_button(field) }}
             {% endif %}

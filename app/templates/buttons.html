@@ -18,3 +18,7 @@
 {% macro edit(href, text='', disabled=False) %}
   {{ link(href, icon='edit', text=text, disabled=disabled) }}
 {% endmacro %}
+
+{% macro ok(href, text='', disabled=False) %}
+  {{ link(href, icon='ok', text=text, color='success', disabled=disabled) }}
+{% endmacro %}
