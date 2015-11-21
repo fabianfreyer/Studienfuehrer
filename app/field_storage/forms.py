@@ -1,4 +1,6 @@
 from ..utils.redirect_back import RedirectForm
+from ..utils.sqlalchemy_polymorphism import polymorphic_subclasses
+from .models import Field
 from wtforms import StringField, TextAreaField, BooleanField, SubmitField
 from wtforms_components import SelectField
 from wtforms.validators import Required
@@ -9,9 +11,8 @@ class SchemaForm(RedirectForm):
    category = SelectField(_('Category'), coerce=int)
    description = TextAreaField('Description', validators=[Required()])
    data_type = SelectField('Type',
-           choices=[('textfield', _('Text')),
-                    ('integerfield', _('Numeric')),
-                    ('boolean', _('Boolean'))])
+           choices=[(discriminator, class_.__name__)
+               for discriminator, class_ in polymorphic_subclasses(Field).iteritems()])
    permit_comment = BooleanField(_('Permit Comment'))
    submit = SubmitField()
 
