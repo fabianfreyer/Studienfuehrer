@@ -4,18 +4,18 @@
 
 {% block scripts %}
   {{super()}}
-	<script type="text/javascript">
+  <script type="text/javascript">
     $('.confirm').on('click', function () {
-			return confirm('{% trans %}Are you sure?{% endtrans %}');
-		});
-	</script>
+      return confirm('{% trans %}Are you sure?{% endtrans %}');
+    });
+  </script>
 {% endblock %}
 
 {% block styles %}
-	{{super()}}
-	<style>
-	body { padding-top: 70px; }
-	</style>
+  {{super()}}
+  <style>
+  body { padding-top: 70px; }
+  </style>
 {% endblock %}
 
 {% block navbar %}
@@ -23,35 +23,35 @@
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-							<span class="sr-only">{% trans %}Toggle navigation{% endtrans %}</span>
+              <span class="sr-only">{% trans %}Toggle navigation{% endtrans %}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="{{ url_for('main.index') }}">
-						<span class="glyphicon glyphicon-education" aria-hidden="true"></span>
-						{% trans %}UG{% endtrans %}
-					</a>
+          </button>
+          <a class="navbar-brand" href="{{ url_for('main.index') }}">
+            <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+            {% trans %}UG{% endtrans %}
+          </a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-							<li><a href="{{ url_for('unis.by_city') }}">{% trans %}Cities{% endtrans %}</a></li>
-							{% if current_user.is_authenticated %}
-							{% endif %}
+              <li><a href="{{ url_for('unis.by_city') }}">{% trans %}Cities{% endtrans %}</a></li>
+              {% if current_user.is_authenticated %}
+              {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if current_user.is_authenticated %}
                 <li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans %}Admin{% endtrans %}<span class="caret"></span></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans %}Admin{% endtrans %}<span class="caret"></span></a>
                   <ul class="dropdown-menu">
-										<li><a href="{{ url_for('unis.city_add') }}">{% trans %}Add City{% endtrans %}</a></li>
-										<li><a href="{{ url_for('unis.uni_add') }}">{% trans %}Add Uni{% endtrans %}</a></li>
-										<li><a href="{{ url_for('field_storage.schema_admin') }}">{% trans %}Schema{% endtrans %}</a></li>
+                    <li><a href="{{ url_for('unis.city_add') }}">{% trans %}Add City{% endtrans %}</a></li>
+                    <li><a href="{{ url_for('unis.uni_add') }}">{% trans %}Add Uni{% endtrans %}</a></li>
+                    <li><a href="{{ url_for('field_storage.schema_admin') }}">{% trans %}Schema{% endtrans %}</a></li>
                   </ul>
                 </li>
-								<li><a href="{{ url_for('auth.logout') }}">{% trans %}Log Out{% endtrans %}</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">{% trans %}Log Out{% endtrans %}</a></li>
                 {% else %}
-									<li><a href="{{ url_for('auth.login') }}">{% trans %}Log In{% endtrans %}</a></li>
+                  <li><a href="{{ url_for('auth.login') }}">{% trans %}Log In{% endtrans %}</a></li>
                 {% endif %}
             </ul>
         </div>

@@ -2,25 +2,28 @@
 
 {% block content %}
 <div class="jumbotron">
-	  <div class="container">
-			<h1>{% trans %}University Guide{% endtrans %}</h1>
-			<p>
-				{% trans %}A platform for comparing, filtering and reading about universities.{% endtrans %}<br/>
-				{% trans %}Made by students for future students.{% endtrans %}
-			</p>
-			<p><a class="btn btn-primary btn-lg" href="{{url_for('unis.by_city')}}" role="button">{% trans %}I know where I want to go{% endtrans %}</a></p>
-		</div>
+    <div class="container">
+      <h1>
+        {% trans %}University Guide{% endtrans %}
+        <span class="glyphicon glyphicon-education pull-right" aria-hidden="true"></span>
+      </h1>
+      <p>
+        {% trans %}A platform for comparing, filtering and reading about universities.{% endtrans %}<br/>
+        {% trans %}Made by students for future students.{% endtrans %}
+      </p>
+      <p><a class="btn btn-primary btn-lg" href="{{url_for('unis.by_city')}}" role="button">{% trans %}I know where I want to go{% endtrans %}</a></p>
+    </div>
 </div>
 <div class="container">
-	{% block page_content %}
-		<p>
-		{% trans %}This University guide is a collaboration of the{% endtrans %}
-		<ul>
-			<li><a href="http://zapfev.de/">ZaPF</a></li>
-			<li><a href="http://kif.fsinf.de/">KIF</a></li>
-			<li><a href="http://die-koma.org/">KoMa</a></li>
-		</ul>
-	{% endblock %}
+  {% block page_content %}
+    <p>
+    {% trans %}This University guide is a collaboration of the{% endtrans %}
+    <ul>
+      <li><a href="http://zapfev.de/">ZaPF</a></li>
+      <li><a href="http://kif.fsinf.de/">KIF</a></li>
+      <li><a href="http://die-koma.org/">KoMa</a></li>
+    </ul>
+  {% endblock %}
 </div>
 {% endblock %}
 
