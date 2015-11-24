@@ -1,8 +1,12 @@
+
 """
 adapted from http://flask.pocoo.org/snippets/63/
 """
+try:
+        from urllib.parse import urlparse
+except ImportError:
+        from urlparse import urlparse
 
-from urlparse import urlparse, urljoin
 from flask import request, url_for, redirect
 from flask.ext.wtf import Form
 from wtforms import TextField, HiddenField
