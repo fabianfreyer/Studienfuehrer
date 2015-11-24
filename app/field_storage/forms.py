@@ -12,7 +12,7 @@ class SchemaForm(RedirectForm):
    description = TextAreaField('Description', validators=[Required()])
    data_type = SelectField('Type',
            choices=[(discriminator, class_.__name__)
-               for discriminator, class_ in polymorphic_subclasses(Field).iteritems()])
+               for discriminator, class_ in polymorphic_subclasses(Field).items()])
    permit_comment = BooleanField(_('Permit Comment'))
    submit = SubmitField()
 
