@@ -92,8 +92,8 @@ def translation(action):
 @manager.command
 def test():
     import unittest
-    tests = unittest.TestLoader().discover('tests')
-    unittestTextTestRunner(verbosity=2).run(tests)
+    tests = unittest.TestLoader().discover(os.path.join(basedir, 'tests'))
+    unittest.TextTestRunner(verbosity=2).run(tests)
 
 if __name__ == '__main__':
     manager.run()
