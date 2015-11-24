@@ -42,7 +42,7 @@ class Schema(db.Model):
         return self.can_edit and (Field.query.filter_by(field_type=self).count() == 0)
 
     def __repr__(self):
-        return "<Field: (%s) %s>" % (self.data_type, self.name)
+        return "<%s(%d): (%d) %s>" % (self.__class__.__name__, self.id, self.data_type, self.name)
 
 class Field(db.Model):
     class UpdateTimestampExtension(db.MapperExtension):
@@ -133,6 +133,10 @@ class Field(db.Model):
     def outdated(self):
         return (self.age >= current_app.config['FIELD_WARN_OUTDATED'])
 
+    def __repr__(self):
+        return "<%s(%d): %s=%s>" % (self.__class__.__name__, self.id, self.name, self.value)
+
+
 class TextField(Field):
     __tablename__ = 'textfield'
     __mapper_args__ = {
@@ -141,10 +145,6 @@ class TextField(Field):
     id = db.Column(db.Integer, db.ForeignKey('field.id'), primary_key=True)
     value = db.Column(db.String)
     widget = wtforms.StringField
-
-    def __repr__(self):
-        return "TextField(%s: %s)" % (self.name, self.value)
-
 
 class IntegerField(Field):
     __tablename__ = 'integerfield'
@@ -156,9 +156,6 @@ class IntegerField(Field):
     # FIXME: add an integer validator here
     widget = wtforms.StringField
 
-    def __repr__(self):
-        return "IntField(%s: %d)" % (self.name, self.value)
-
 class BooleanField(Field):
     __tablename__ = 'booleanfield'
     __mapper_args__ = {
@@ -167,9 +164,6 @@ class BooleanField(Field):
     id = db.Column(db.Integer, db.ForeignKey('field.id'), primary_key=True)
     value = db.Column(db.Boolean())
     widget = wtforms.BooleanField
-
-    def __repr__(self):
-        return "BooleanField(%s: %d)" % (self.name, self.value)
 
 
 class Container(db.Model):
@@ -182,7 +176,7 @@ class Container(db.Model):
             self._fields = {}
 
         def __repr__(self):
-            return "<CategoryInstance(%s): %r>" % (self.category.name, self._fields)
+            return "<%s: %s=%r>" % (self.__class__.__name__,self.category.name, self._fields)
 
         def __getitem__(self, key):
             id_ = self._fields[key]
@@ -229,6 +223,12 @@ class Container(db.Model):
             res[field.category.name].append(field)
         return res
 
+    def __repr__(self):
+        if 'name' in self.fields:
+            return "<%s(%d): %s>" % (self.__class__.__name__, self.id, self.fields['name'].value)
+        else:
+            return "<%s(%d)>" % (self.__class__.__name__, self.id)
+
 
 class Category(db.Model):
     """
@@ -252,6 +252,5 @@ class Category(db.Model):
         # Check if there are still field types in the database
         return False if self.schemata else True
 
-
     def __repr__(self):
-        return "<Category: %s>" % self.name
+        return "<%s(%d): %s>" % (self.__class__.__name__, self.id, self.name)
